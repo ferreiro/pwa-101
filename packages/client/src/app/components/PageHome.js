@@ -6,7 +6,7 @@ export function PageHome(props) {
         <PageLayout
             title="Agenda for today"
         >
-            <h1>Welcome to the home! {props.title}</h1>
+            <h1>Welcome to the home22! {props.title}</h1>
         </PageLayout>
     )
 }

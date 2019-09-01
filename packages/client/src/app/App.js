@@ -9,6 +9,8 @@ import {
 } from './constants/paths.js'
 
 if ('serviceWorker' in navigator) {
+    console.log('Sap2')
+    console.log('Trying to register a service worker yay!')
     navigator.serviceWorker.register('sw.js')
         .then((registration) => {
             console.log(registration)

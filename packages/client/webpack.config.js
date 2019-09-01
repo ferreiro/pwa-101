@@ -6,7 +6,8 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 
-const getSSLConfig = require('../../ssl/getSSLConfig')
+// const getSSLConfig = require('../../ssl/getSSLConfig')
+const devServer = require('./webpack/devserver.config')
 
 const DESTINATION_PATH = path.join(__dirname, '../server/dist')
 
@@ -20,12 +21,15 @@ module.exports = {
     },
     // This is required to make the hot reload work for the web...
     target: 'web',
-    devServer: {
-        contentBase: DESTINATION_PATH,
-        compress: true,
-        port: 5000,
-        https: getSSLConfig(),
-    },
+    devServer: devServer({
+        outputPath: DESTINATION_PATH
+    }),
+    // devServer: {
+    //     contentBase: DESTINATION_PATH,
+    //     compress: true,
+    //     port: 5000,
+    //     https: getSSLConfig(),
+    // },
     optimization: {
         minimizer: [new TerserJSPlugin({}), new OptimizeCSSAssetsPlugin({})]
     },

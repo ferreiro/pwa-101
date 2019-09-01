@@ -12,6 +12,7 @@ var Notification = function Notification(_ref) {
 
     return React.createElement('div', null, 'I\'m a notification LOL')
 }
+console.log('das');
 
 ReactDOM.render(
     React.createElement(BrowserRouter, null, React.createElement(App, null)),

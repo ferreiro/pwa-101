@@ -1,42 +1,39 @@
 #!/usr/bin/env node
 
-/**
- * Module dependencies.
- */
-
-var app = require('../index');
-var debug = require('debug')('hackathon:server');
-var https = require('https');
+const app = require('../index');
+const debug = require('debug')('hackathon:server');
+const https = require('https');
 const getSSLConfig = require('../../../ssl/getSSLConfig')
+const getDevelopmentCertificate = require('devcert-with-localhost').default;
 
-/**
- * Get port from environment and store in Express.
- */
+function startAndListen(server, port) {
+  return new Promise((resolve) => {
+    server.on('error', onError);
+    server.on('listening', () => {
+      const addr = server.address();
+      const bind = typeof addr === 'string'
+        ? 'pipe ' + addr
+        : 'port ' + addr.port;
 
-var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
-
-/**
- * Creating an HTTPS server.
- */
-
-const options = {
-  ...getSSLConfig()
+      debug('Listening on ' + bind);
+    });
+    server.listen(port, () => {
+      resolve();
+    });
+  })
 }
 
-const server = https.createServer(options, app);
+debug('Attempting to get certificate');
+getDevelopmentCertificate('frontend-grocer', { installCertutil: true }).then((ssl) => {
+  debug('SSL configuration received. Starting app server');
 
-/**
- * Listen on provided port, on all network interfaces.
- */
+  const port = normalizePort(process.env.PORT || '3000');
+  app.set('port', port);
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+  const server = https.createServer(ssl, app);
 
-/**
- * Normalize a port into a number, string, or false.
- */
+  return startAndListen(server, port);
+})
 
 function normalizePort(val) {
   var port = parseInt(val, 10);
@@ -80,17 +77,4 @@ function onError(error) {
     default:
       throw error;
   }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  console.log('Your amazing hack is running on port ' + bind)
 }
