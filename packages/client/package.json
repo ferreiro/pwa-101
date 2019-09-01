@@ -7,7 +7,7 @@
     "format": "prettier ./src/**/PageHome.js",
     "build": "webpack --mode production",
     "build:dev": "webpack --mode development",
-    "start:dev": "webpack-dev-server --https --mode development",
+    "start:dev": "webpack-dev-server --mode development",
     "start": "yarn build"
   },
   "engines": {
