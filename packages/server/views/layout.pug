@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href= staticAssetsPath + '/client.css')
+    meta(http-equiv="Access-Control-Allow-Origin" content="*")
+  body
+    #app
+
+    block content
+    block scripts
+      script(src= staticAssetsPath + '/client.bundle.js')
