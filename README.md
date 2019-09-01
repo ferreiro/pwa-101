@@ -7,6 +7,14 @@ In order to do that, just simply run:
 
 1. $ yarn setup
 
+```
+openssl req -x509 -out ./certificates/localhost.cert -keyout ./certificates/localhost.key \
+  -newkey rsa:2048 -nodes -sha256 \
+  -subj '/CN=localhost' -extensions EXT -config <( \
+   printf "[dn]\nCN=localhost\n[req]\ndistinguished_name = dn\n[EXT]\nsubjectAltName=DNS:localhost\nkeyUsage=digitalSignature\nextendedKeyUsage=serverAuth")
+
+```
+
 For more info check: https://timonweb.com/posts/running-expressjs-server-over-https/
 Also check: https://letsencrypt.org/docs/certificates-for-localhost/
 

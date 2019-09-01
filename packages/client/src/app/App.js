@@ -8,6 +8,24 @@ import {
     PATH_FAVORITES,
 } from './constants/paths.js'
 
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js')
+        .then((registration) => {
+            console.log(registration)
+
+            registration.showNotification('pene',{
+                'body': 'Did you make a $1,000,000 purchase at Dr. Evil...',
+                'icon': 'images/ccard.png',
+                'vibrate': [200, 100, 200, 100, 200, 100, 400],
+                'tag': 'request',
+                'actions': [
+                    { 'action': 'yes', 'title': 'Yes', 'icon': 'images/yes.png' },
+                    { 'action': 'no', 'title': 'No', 'icon': 'images/no.png' }
+                ]
+            })
+        })
+        .catch((error) => console.log(error))
+}
 const App = () => {
 
     return (
