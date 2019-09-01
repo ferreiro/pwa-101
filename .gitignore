@@ -5,6 +5,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Preventing adding Server certificates
+certificates
+
+*.DS_store
+
 # Runtime data
 pids
 *.pid

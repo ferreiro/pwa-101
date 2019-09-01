@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "setup:ssl": "openssl req -nodes -new -x509 -keyout ./certificates/server.key -out ./certificates/server.cert",
+    "setup": "yarn setup:ssl",
     "dev": "concurrently \"yarn backend:server\" \"yarn frontend:server:dev\"",
     "frontend:server:dev": "yarn workspace client start:dev",
     "backend:server": "yarn workspace server start",

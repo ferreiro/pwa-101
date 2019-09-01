@@ -1,5 +1,15 @@
 # PWA 101
 
+## Setup your SSL certificate.
+
+To run some PWA features we need to have a secure server.
+In order to do that, just simply run:
+
+1. $ yarn setup
+
+For more info check: https://timonweb.com/posts/running-expressjs-server-over-https/
+Also check: https://letsencrypt.org/docs/certificates-for-localhost/
+
 ## How to install and develop locally?
 
 1. Clone this repo locally: `$ git clone https://github.com/ferreiro/facebook-hackathon.git`

@@ -6,7 +6,9 @@
 
 var app = require('../index');
 var debug = require('debug')('hackathon:server');
-var http = require('http');
+var https = require('https');
+var fs = require('fs');
+var path = require('path');
 
 /**
  * Get port from environment and store in Express.
@@ -16,10 +18,23 @@ var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * Creating an HTTPS server.
  */
 
-var server = http.createServer(app);
+const certificatesPath = '../../../certificates'
+let serverOptions = {}
+
+// TODO: Check if certificates folder was created...
+// Otherwise, throw error and warn to run yarn setup
+
+if (process.env !== 'production') {
+  serverOptions = {
+    key: fs.readFileSync(path.join(__dirname, `${certificatesPath}/server.key`)),
+    cert: fs.readFileSync(path.join(__dirname, `${certificatesPath}/server.cert`)),
+  }
+}
+
+const server = https.createServer(serverOptions, app);
 
 /**
  * Listen on provided port, on all network interfaces.
