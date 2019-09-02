@@ -3,11 +3,13 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"yarn backend:server\" \"yarn frontend:server:dev\"",
-    "frontend:server:dev": "yarn workspace client start:dev",
-    "backend:server": "yarn workspace server start",
+    "gen:certs": "node ./packages/server/gen-certs",
+    "dev": "concurrently \"yarn frontend:build:dev\" \"yarn backend:api\" \"yarn backend:static-server\"",
+    "frontend:build:dev": "yarn workspace client build:dev",
+    "backend:api": "yarn workspace server start:api",
+    "backend:static-server": "yarn workspace server start:static-server",
     "build": "yarn workspace client build",
-    "start": "yarn build && yarn backend:server"
+    "start": "yarn build && concurrently \"yarn backend:api\" \"yarn backend:static-server\""
   },
   "workspaces": [
     "packages/*"

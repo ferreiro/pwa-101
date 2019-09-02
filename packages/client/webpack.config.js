@@ -15,8 +15,8 @@ const env = process.env
 // const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
 
 
-module.exports = function(env, argv) {
-    const mode = argv.mode
+module.exports = function(env, argv = {}) {
+    const mode = argv.mode || 'development'
 
     console.log(`
         ℹ️  Webpack mode: ${mode}

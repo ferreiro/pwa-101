@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "server": "nodemon -e js,pug,html --exec babel-node ./bin/www",
-    "start": "yarn run server"
+    "start:api": "nodemon -e js,pug,html --exec babel-node ./bin/www",
+    "start:static-server": "node ./asset-server/index.js",
+    "start": "concurrently \"yarn start:api\" \"start:static-server\""
   },
   "engines": {
     "node": ">=8.0.0"
@@ -20,6 +21,7 @@
     "@babel/core": "7.4.3",
     "@babel/node": "7.2.2",
     "@babel/preset-env": "7.4.3",
+    "chalk": "2.4.2",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "devcert-with-localhost": "0.3.3",
@@ -29,5 +31,8 @@
     "nodemon": "1.18.11",
     "pug": "2.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "webpack": "4.39.3",
+    "webpack-dev-middleware": "3.7.0"
+  }
 }

@@ -27,6 +27,7 @@ if ('serviceWorker' in navigator) {
         })
         .catch((error) => console.log(error))
 }
+
 const App = () => {
 
     return (
