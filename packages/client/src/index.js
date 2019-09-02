@@ -22,3 +22,10 @@ ReactDOM.render(
     React.createElement(Notification, null),
     document.getElementById('notifications')
 )
+
+if (module.hot) {
+  module.hot.accept();
+  module.hot.dispose(function() {
+    clearInterval(timer);
+  });
+}
