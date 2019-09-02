@@ -27,7 +27,7 @@ debug('Attempting to get certificate');
 getDevelopmentCertificate('frontend-grocer', { installCertutil: true }).then((ssl) => {
   debug('SSL configuration received. Starting app server');
 
-  const port = normalizePort(process.env.PORT || '5000');
+  const port = normalizePort(process.env.PORT || '3000');
   app.set('port', port);
 
   const server = https.createServer(ssl, app);
