@@ -7,6 +7,7 @@ yarn-error.log*
 
 # Preventing adding Server certificates
 certificates
+private
 
 *.DS_store
 
