@@ -3,7 +3,7 @@
 const app = require('../index');
 const debug = require('debug')('hackathon:server');
 const https = require('https');
-const getSSLConfig = require('../../../ssl/getSSLConfig')
+
 const getDevelopmentCertificate = require('devcert-with-localhost').default;
 
 function startAndListen(server, port) {
@@ -27,7 +27,7 @@ debug('Attempting to get certificate');
 getDevelopmentCertificate('frontend-grocer', { installCertutil: true }).then((ssl) => {
   debug('SSL configuration received. Starting app server');
 
-  const port = normalizePort(process.env.PORT || '3000');
+  const port = normalizePort(process.env.PORT || '5000');
   app.set('port', port);
 
   const server = https.createServer(ssl, app);
