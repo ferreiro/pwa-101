@@ -22,11 +22,8 @@ module.exports = function(env, argv) {
         ℹ️  Webpack mode: ${mode}
     `)
 
-    const isWatchModeEnabled = mode === 'development'
-
     return {
         mode,
-        watch: isWatchModeEnabled,
         entry: {
             client: [path.join(__dirname, './src/index.js'), 'webpack-hot-middleware/client'],
         },

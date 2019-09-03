@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"yarn dev:backend:server\" \"yarn dev:frontend:build\"",
-    "dev:frontend:build": "yarn workspace client build:dev",
+    "dev": "concurrently \"yarn dev:backend:server\" \"yarn dev:frontend:build:watch\"",
+    "dev:frontend:build": "yarn workspace client build:dev:watch",
+    "dev:frontend:build:watch": "yarn workspace client build:dev:watch",
     "dev:backend:server": "yarn workspace server start",
     "backend:server": "yarn workspace server start",
     "build": "yarn workspace client build",
