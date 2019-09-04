@@ -1,33 +1,54 @@
 import React from 'react'
-import { css } from 'emotion'
+import { css, cx } from 'emotion'
 import { Link } from 'react-router-dom'
 
 import { PATH_ARTIST } from '../constants/paths'
+import { spacing1, spacing3 } from '../constants/style'
 
 function Agenda(props) {
     const { artists, agenda, favorites, notifications, onFavoriteArtist, onNotifyArtist } = props
     const agendaItems = Object.values(agenda)
 
-    console.log('Agenda:props')
-    console.log(props)
+    // NB: Expected Result
+    // "FRIDAY": [{]}]
+    const agendaItemsGroupedByDates = agendaItems.reduce((accumValue, currentValue) => {
+        const date = currentValue.date
+        const dateItems = accumValue[date] || []
+
+        dateItems.push(currentValue)
+
+        accumValue[date] = dateItems
+
+        return accumValue
+    }, {})
 
     return (
         <div>
-            {agendaItems.map((agendaItem) => {
-                const artist = artists[agendaItem.artistId]
-
-                console.log('agendaItem.artistId', agendaItem.artistId)
+            {Object.keys(agendaItemsGroupedByDates).map((date) => {
+                const dateItems = Object.values(agendaItemsGroupedByDates[date])
 
                 return (
-                    <AgendaItem
-                        key={agendaItem.id}
-                        {...agendaItem}
-                        artist={artist}
-                        favorites={favorites}
-                        notifications={notifications}
-                        onFavoriteArtist={onFavoriteArtist}
-                        onNotifyArtist={onNotifyArtist}
-                    />
+                    <div key={date}>
+                        <p>Date: {date}</p>
+
+                        {dateItems.map((agendaItem) => {
+                            const artist = artists[agendaItem.artistId]
+
+                            console.log('agendaItem.artistId', agendaItem.artistId)
+
+                            return (
+                                <AgendaItem
+                                    key={agendaItem.id}
+                                    {...agendaItem}
+                                    artist={artist}
+                                    favorites={favorites}
+                                    notifications={notifications}
+                                    onFavoriteArtist={onFavoriteArtist}
+                                    onNotifyArtist={onNotifyArtist}
+                                />
+                            )
+                        })}
+                    </div>
                 )
             })}
         </div>
@@ -38,6 +59,7 @@ const agendaItemStyle = {
     wrapper: css`
         display: flex;
         flex-direction: row;
+        margin-bottom: ${spacing3};
     `,
     time: css`
         width: 50px;
@@ -121,6 +143,76 @@ function AgendaCard(props) {
     )
 }
 
+const buttonFavoriteStyle = {
+    wrapper: css`
+        padding: $spacing1 $spacing2;
+        border-radius: 5px;
+    `,
+    active: css`
+        background-color: blue;
+    `,
+    text: css``,
+}
+
+function ButtonFavorite({
+    isFavorited,
+    onClick,
+}) {
+    const wrapperClassName = isFavorited
+        ? cx(buttonFavoriteStyle.wrapper, buttonFavoriteStyle.active) 
+        : buttonFavoriteStyle.wrapper
+
+    return (
+        <button
+            onClick={onClick}
+            className={wrapperClassName}
+        >
+            <span className={buttonFavoriteStyle.text}>
+                {isFavorited ? '💔' : '❤️'}
+            </span>
+        </button>
+    )
+}
+
+const buttonNotificationStyle = {
+    wrapper: css`
+        padding: $spacing1 $spacing2;
+        border-radius: 5px;
+    `,
+    'wrapper:active': css`
+        background-color: blue;
+    `,
+    text: css``,
+}
+
+function ButtonNotify({
+    isNotified,
+    onClick,
+}) {
+    return (
+        <button
+            onClick={onClick}
+            className={buttonNotificationStyle.wrapper}
+        >
+            <span className={buttonNotificationStyle.text}>
+                {isNotified ? '🔕' : '🔔'}
+            </span>
+        </button>
+    )
+}
+
+const artistActionsStyle = {
+    wrapper: css`
+        margin: 0;
+        padding: 0;
+        display: flex;
+    `,
+    item: css`
+        list-style: none;
+        margin-right: ${spacing1};
+    `
+}
+
 function ArtistActions({
     artistId,
     purchaseUrl,
@@ -141,20 +233,28 @@ function ArtistActions({
     }
 
     return (
-        <ul>
-            <button onClick={_handleFavoriteArtist}>
-                {isFavorited ? '💔' : '❤️'}
-            </button>
+        <ul className={artistActionsStyle.wrapper}>
+            <li className={artistActionsStyle.item}>
+                <ButtonFavorite
+                    onClick={_handleFavoriteArtist}
+                    isFavorited={isFavorited}
+                />
+            </li>
 
-            <button onClick={_handleNotifyArtist}>
-                {isNotified ? '🔕' : '🔔'}
-            </button>
+            <li className={artistActionsStyle.item}>
+                <ButtonNotify
+                    onClick={_handleNotifyArtist}
+                    isNotified={isNotified}
+                />
+            </li>
 
-            {purchaseUrl && (
-                <a href={purchaseUrl} target="_blank" rel="noopener noreferrer">
-                    RSVP
-                </a>
-            )}
+            <li className={artistActionsStyle.item}>
+                {purchaseUrl && (
+                    <a href={purchaseUrl} target="_blank" rel="noopener noreferrer">
+                        RSVP
+                    </a>
+                )}
+            </li>
         </ul>
     )
 }
