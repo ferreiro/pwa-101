@@ -15,6 +15,32 @@ const actionsWidth = '80px'
 const logoFontSize = '30px'
 const logoColor = colorPrimary
 
+
+const buttonFavoriteStyle = {
+    wrapper: css`
+        padding: $spacing1 $spacing2;
+        border-radius: 5px;
+    `,
+    active: css`
+        background-color: blue;
+    `,
+    text: css``,
+}
+
+function ButtonGoBack({
+    onClick,
+}) {
+    return (
+        <button
+            onClick={onClick}
+        >
+            <span className={buttonFavoriteStyle.text}>
+                ⬅ Back
+            </span>
+        </button>
+    )
+}
+
 const pageHeaderStyle = {
     wrapper: css`
         align-items: center;
@@ -55,33 +81,21 @@ const pageHeaderStyle = {
     `,
 }
 
-const PageTitleStyles = {
-    title: css`
-        font-size: 2em;
-        text-transform: uppercase;
-        font-weight: bold;
-        margin-bottom: ${spacing2};
-    `,
-}
-
-const pageLayoutStyle = {
-    wrapper: css`
-        font-family: 'Roboto', sans-serif;
-        font-family: 'Open Sans', sans-serif;
-    `,
-    container: css`
-        padding: 2em;
-    `,
-}
-
 function PageHeader({
-    isEnabledGoBack,
+    routeProps,
 }) {
+    const isEnabledGoBack = routeProps.match.path !== '/'
+    const onClickGoBack = (event) => {
+        routeProps.history.goBack()
+    }
+
     return (
         <header className={pageHeaderStyle.wrapper}>
             <div className={pageHeaderStyle.goBack}>
                 {isEnabledGoBack && (
-                    'Go back'
+                    <ButtonGoBack
+                        onClick={onClickGoBack}
+                    />
                 )}
             </div>
 
@@ -114,6 +128,16 @@ function PageHeader({
     )
 }
 
+
+const PageTitleStyles = {
+    title: css`
+        font-size: 2em;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: ${spacing2};
+    `,
+}
+
 function PageTitle({
     title,
 }) {
@@ -124,16 +148,27 @@ function PageTitle({
     )
 }
 
+const pageLayoutStyle = {
+    wrapper: css`
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Open Sans', sans-serif;
+    `,
+    container: css`
+        padding: 2em;
+    `,
+}
+
 export function PageLayout({
+    routeProps,
     children,
     title,
 }) {
-    const isEnabledGoBack = false
+    console.log('routeProps', routeProps)
 
     return (
         <div className={pageLayoutStyle.wrapper}>
             <PageHeader
-                isEnabledGoBack={isEnabledGoBack}
+                routeProps={routeProps}
             />
             <div className={pageLayoutStyle.container}>
                 <PageTitle
