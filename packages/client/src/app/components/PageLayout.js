@@ -8,9 +8,9 @@ import {
     spacing2,
 } from '../constants/style'
 
-const goBackWidth = '120px'
+const goBackWidth = '80px'
 
-const actionsWidth = '120px'
+const actionsWidth = '80px'
 
 const logoFontSize = '30px'
 const logoColor = colorPrimary
@@ -28,43 +28,70 @@ const pageHeaderStyle = {
         min-width: ${goBackWidth};
     `,
     logo: css`
-        
+        flex: 1 1 auto;
+        justify-content: center;
     `,
     logoText: css`
         color: ${logoColor};
         font-size: ${logoFontSize};
+        text-align: center;
     `,
     actions: css`
         display: flex;
         min-width: ${actionsWidth};
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        justify-content: space-around;
     `,
 }
 
-const pageTitleStyle = {
+const PageTitleStyles = {
+    title: css`
+        font-size: 2em;
+        text-transform: uppercase;
+        font-weight: bold;
+        margin-bottom: ${spacing2};
+    `,
 }
 
-const pageLayoutStyle = {}
+const pageLayoutStyle = {
+    wrapper: css`
+        font-family: 'Roboto', sans-serif;
+        font-family: 'Open Sans', sans-serif;
+    `,
+    container: css`
+        padding: 2em;
+    `,
+}
 
-function PageHeader(props = {}) {
+function PageHeader({
+    isEnabledGoBack,
+}) {
     return (
         <header className={pageHeaderStyle.wrapper}>
             <div className={pageHeaderStyle.goBack}>
-                Go back
+                {isEnabledGoBack && (
+                    'Go back'
+                )}
             </div>
+
             <div className={pageHeaderStyle.logo}>
-                <h1 className={pageHeaderStyle.logoText}>
-                    Pennapps
-                </h1>
+                <Link to="/">
+                    <h1 className={pageHeaderStyle.logoText}>
+                        Pennapps
+                    </h1>
+                </Link>
             </div>
             <ul className={pageHeaderStyle.actions}>
                 <li>
-                    <Link to="/">
-                      Notifications
+                    <Link to="/notifications">
+                      🛎
                     </Link>  
                 </li>
                 <li>
-                    <Link to="/">
-                      Loved
+                    <Link to="/favorites">
+                      ❤️
                     </Link>  
                 </li>
             </ul>
@@ -76,7 +103,7 @@ function PageTitle({
     title,
 }) {
     return (
-        <div>
+        <div className={PageTitleStyles.title}>
             {title}
         </div>
     )
@@ -86,11 +113,17 @@ export function PageLayout({
     children,
     title,
 }) {
+    const isEnabledGoBack = false
+
     return (
-        <div>
-            <PageHeader />
-            <PageTitle title={title} />
-            <div>
+        <div className={pageLayoutStyle.wrapper}>
+            <PageHeader
+                isEnabledGoBack={isEnabledGoBack}
+            />
+            <div className={pageLayoutStyle.container}>
+                <PageTitle
+                    title={title}
+                />
                 {children}
             </div>
         </div>
