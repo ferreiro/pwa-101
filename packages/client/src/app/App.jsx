@@ -13,6 +13,9 @@ import {
     PATH_FAVORITES,
 } from './constants/paths'
 
+const DATE_FRIDAY = 'date/friday'
+const DATE_SATURDAY = 'date/saturday'
+
 if ('serviceWorker' in navigator) {
     console.log('Sap2 232')
     console.log('Trying to register a service worker yay!')
@@ -90,6 +93,7 @@ function App(props) {
             country: '🇪🇸',
             imageHero: '/static/images/crystal_fighters.jpg',
             imageIcon: '',
+            biography: 'This is my super biography<br /><br />Hi there!',
         },
         'venmo-232': {
             id: 'venmo-232',
@@ -98,20 +102,31 @@ function App(props) {
             country: '🇪🇸',
             imageHero: '/static/images/crystal_fighters.jpg',
             imageIcon: '',
+            biography: 'This is my super biography<br /><br />Hi there!',
         }
     }
 
     const agenda = {
-        '5pm': {
+        '23424234': {
             id: '23424234',
             time: '5 PM',
+            date: DATE_FRIDAY,
             stage: 'Rock in Rio',
             artistId: 'venmo-232',
             purchaseUrl: 'eventbrite.com',
         },
-        '7pm': {
+        '3423423': {
             id: '3423423',
             time: '7 PM',
+            date: DATE_FRIDAY,
+            stage: 'Rock in Rio',
+            artistId: 'jorge-ferreiro',
+            purchaseUrl: 'eventbrite.com',
+        },
+        '3423423': {
+            id: '3423423',
+            time: '7 PM',
+            date: DATE_SATURDAY,
             stage: 'Rock in Rio',
             artistId: 'jorge-ferreiro',
             purchaseUrl: 'eventbrite.com',
@@ -120,7 +135,7 @@ function App(props) {
 
     // TODO: Move into the state...
     let favorites = {
-        // 'jorge-ferreiro': true,
+        'jorge-ferreiro': true,
     }
 
     // TODO: Move into the state...
@@ -188,6 +203,7 @@ function App(props) {
     const withLayout = (Component, { props = {}, routeProps = {} }) => (
         <PageLayout
             title={props.title}
+            routeProps={routeProps}
         >
             <Component
                 {...routeProps}
