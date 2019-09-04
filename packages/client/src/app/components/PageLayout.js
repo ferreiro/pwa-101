@@ -35,6 +35,10 @@ const pageHeaderStyle = {
         color: ${logoColor};
         font-size: ${logoFontSize};
         text-align: center;
+        text-decoration: none;
+    `,
+    logoTextLink: css`
+        text-decoration: none;
     `,
     actions: css`
         display: flex;
@@ -43,6 +47,9 @@ const pageHeaderStyle = {
         padding: 0;
         list-style: none;
         justify-content: space-around;
+    `,
+    actionsLink: css`
+        text-decoration: none;
     `,
 }
 
@@ -77,7 +84,7 @@ function PageHeader({
             </div>
 
             <div className={pageHeaderStyle.logo}>
-                <Link to="/">
+                <Link to="/" className={pageHeaderStyle.logoTextLink}>
                     <h1 className={pageHeaderStyle.logoText}>
                         Pennapps
                     </h1>
@@ -85,12 +92,18 @@ function PageHeader({
             </div>
             <ul className={pageHeaderStyle.actions}>
                 <li>
-                    <Link to="/notifications">
+                    <Link
+                        className={pageHeaderStyle.actionsLink}
+                        to="/notifications"
+                    >
                       🛎
                     </Link>  
                 </li>
                 <li>
-                    <Link to="/favorites">
+                    <Link
+                        className={pageHeaderStyle.actionsLink}
+                        to="/favorites"
+                    >
                       ❤️
                     </Link>  
                 </li>
