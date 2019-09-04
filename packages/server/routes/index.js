@@ -10,17 +10,13 @@ const getStaticAssetsPath = () =>
   process.env.NODE_ENV !== 'production' ? '' : ''
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/*', function(req, res, next) {
   return res.sendFile(path.join(__dirname, '../../client/dist/index.html'))
   // // 
   // res.render('index', {
   //   title: 'Express',
   //   staticAssetsPath: getStaticAssetsPath()
   // });
-});
-
-router.get('/foo', function(req, res, next) {
-  return res.send('foo')
 });
 
 module.exports = router;
