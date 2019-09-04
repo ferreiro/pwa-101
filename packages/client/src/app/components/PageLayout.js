@@ -22,7 +22,7 @@ const pageHeaderStyle = {
         border-bottom: 1px solid #cecece;
         display: flex;
         justify-content: space-between;
-        padding: ${spacing1} ${spacing2};
+        padding: ${spacing2} ${spacing2};
     `,
     goBack: css`
         min-width: ${goBackWidth};
@@ -36,6 +36,8 @@ const pageHeaderStyle = {
         font-size: ${logoFontSize};
         text-align: center;
         text-decoration: none;
+        padding: 0;
+        margin: 0;
     `,
     logoTextLink: css`
         text-decoration: none;
