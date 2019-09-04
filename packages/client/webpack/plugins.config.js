@@ -5,7 +5,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const htmlWebpackConfig = {
-    html: require('./html.config')
+    html: require('./html.config'),
+    hash: true,
 }
 
 const getDevelopmentPlugins = () => [
@@ -39,6 +40,9 @@ module.exports = ({
             {
                 from: './src/images/**/**',
                 to: outputPath,
+                transformPath: (targetPath) => (
+                    targetPath.replace('src/', '')
+                )
             }
         ]),
     ]
