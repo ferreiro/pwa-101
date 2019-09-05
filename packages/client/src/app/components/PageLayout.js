@@ -96,8 +96,8 @@ export function PageHeader({
 }) {
     const isEnabledGoBack = routeProps.match.path !== '/'
     const onClickGoBack = (event) => {
-        // NB: You can also use routeProps.history.goBack()
-        routeProps.history.push('/')
+        // NB: You can also use routeProps.history.push('/')
+        routeProps.history.goBack()
     }
 
     return (
