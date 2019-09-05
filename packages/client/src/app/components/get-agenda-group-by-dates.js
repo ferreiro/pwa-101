@@ -1,8 +1,4 @@
 const reducerGroupByDates = (accumValue, currentValue) => {
-    console.log('reducerGroupByDates')
-    console.log('accumValue', accumValue)
-    console.log('currentValue', currentValue)
-
     const date = currentValue.date
     const dateItems = accumValue[date] || []
 
