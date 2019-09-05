@@ -85,20 +85,16 @@ const artistActionsStyle = {
     `
 }
 
+// TODO: Ideally, this component should only get an artistId,
+// and through ContextApi or hooks, it should get the required data
 export function ArtistActions({
     artistId,
-    purchaseUrl,
     favorites,
     subscriptions,
+    tickets,
     onFavoriteArtist,
     onSubscribeArtist,
 }) {
-    console.group('ArtistActions')
-    console.log('artistId', artistId)
-    console.log('subscriptions', subscriptions)
-    console.log('favorites', favorites)
-    console.groupEnd('subscriptions', subscriptions)
-
     const isFavorited = artistId in favorites
     const isNotified = artistId in subscriptions
 
@@ -132,8 +128,8 @@ export function ArtistActions({
             </li>
 
             <li className={artistActionsStyle.item}>
-                {purchaseUrl && (
-                    <a href={purchaseUrl} target="_blank" rel="noopener noreferrer">
+                {tickets && (
+                    <a href={tickets.purchaseUrl} target="_blank" rel="noopener noreferrer">
                         RSVP
                     </a>
                 )}

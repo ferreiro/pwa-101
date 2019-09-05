@@ -161,14 +161,18 @@ function AgendaCard(props) {
                 to={`${PATH_ARTIST}/${id}`}
                 className={agendaCardStyles.link}
             >
-                <img
-                    className={agendaCardStyles.image}
-                    src={imageHero}
-                    alt={artist.name}
-                />
+                {imageHero && (
+                    <img
+                        className={agendaCardStyles.image}
+                        src={imageHero}
+                        alt={artist.name}
+                    />
+                )}
+
                 <h2 className={agendaCardStyles.title}>
                     {name}
                 </h2>
+
                 <h3 className={agendaCardStyles.venue}>
                     📍 {STAGE_MAPPER[stage].text}
                 </h3>
@@ -180,6 +184,7 @@ function AgendaCard(props) {
                 subscriptions={subscriptions}
                 onFavoriteArtist={onFavoriteArtist}
                 onSubscribeArtist={onSubscribeArtist}
+                purchaseUrl={purchaseUrl}
             />
         </div>
     )

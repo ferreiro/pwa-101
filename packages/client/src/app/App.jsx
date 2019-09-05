@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty'
 
 import {getStaticMapsUrl} from './get-static-maps-url'
 import artists from './__fixtures__/artists.json'
+import ScrollToTop from './components/ScrollToTop'
 
 export const debug = process.env === 'production'
     ? () => {}
@@ -79,15 +80,16 @@ class App extends PureComponent {
                 date: DATE_FRIDAY,
                 stage: STAGE_ROCK_IN_RIO,
                 artistId: 'venmo-232',
-                purchaseUrl: 'eventbrite.com',
-            },
-            'wsfefwefweefewfe': {
-                id: 'wsfefwefweefewfe',
-                time: '6 PM',
-                date: DATE_FRIDAY,
-                stage: STAGE_ROCK_IN_RIO,
-                artistId: 'venmo-232',
-                purchaseUrl: 'eventbrite.com',
+                tickets: {
+                    purchaseUrl: 'eventbrite.com',
+                    available: [
+                        {
+                            price: 30,
+                            currency: 'USD',
+                            quantity: 30,
+                        }
+                    ]
+                }
             },
             '3423423': {
                 id: '3423423',
@@ -95,20 +97,28 @@ class App extends PureComponent {
                 date: DATE_FRIDAY,
                 stage: STAGE_ROCK_IN_RIO,
                 artistId: 'jorge-ferreiro',
-                purchaseUrl: 'eventbrite.com',
+                tickets: {
+                    purchaseUrl: 'eventbrite.com',
+                    available: [
+                        {
+                            price: 30,
+                            currency: 'USD',
+                            quantity: 30,
+                        }
+                    ]
+                }
             },
         },
         favorites: {},
         subscriptions: {}
     }
 
-    findArtistStage = (artist) => {
-        const artistId = artist.id
+    findArtistAgendaItem = ({artistId}) => {
         const matchedAgendaItem = Object.values(this.state.agenda).find((agendaItem) =>
             agendaItem.artistId === artistId
         )
 
-        return matchedAgendaItem.stage || ''
+        return matchedAgendaItem || {}
     }
 
     onFavoriteArtist = (artistId) => {
@@ -174,18 +184,32 @@ class App extends PureComponent {
     }
 
     render() {
-        const withLayout = (Component, { props = {}, routeProps = {} }) => (
-            <PageLayout
-                title={props.title}
-                routeProps={routeProps}
-                isFullScreen={props.isFullScreen}
-            >
-                <Component
-                    {...routeProps}
-                    {...props}
-                />
-            </PageLayout>
-        )
+        const withLayout = (Component, { props = {}, routeProps = {} }) => {
+            const PageWithLayout = (
+                <PageLayout
+                    title={props.title}
+                    routeProps={routeProps}
+                    isFullScreen={props.isFullScreen}
+                >
+                    <Component
+                        {...routeProps}
+                        {...props}
+                    />
+                </PageLayout>
+            )
+
+            console.log('scrollToTop')
+            console.log(props)
+            console.log(props.scrollToTop)
+
+            return props.scrollToTop ? (
+                <ScrollToTop>
+                    {PageWithLayout}
+                </ScrollToTop>
+            ) : (
+                PageWithLayout
+            )
+        }
 
         const {
             agenda,
@@ -222,25 +246,22 @@ class App extends PureComponent {
                         const artist = artists[artistId] || {}
 
                         if (isEmpty(artist)) {
-                            const props = {
-                                
-                            }
+                            const props = {}
 
                             return withLayout(PageNotFound, { props, routeProps })
                         }
 
-                        // const artist = artists[]
+                        const artistAgendaItem = this.findArtistAgendaItem({artistId});
+
                         const props = {
                             artist,
-                            // title: artist.name,
-                            // agenda: agenda,
+                            artistAgendaItem,
+                            favorites,
+                            isFullScreen: true,
                             onFavoriteArtist: this.onFavoriteArtist,
                             onSubscribeArtist: this.onSubscribeArtist,
-                            favorites,
                             subscriptions,
-                            artists,
-                            findArtistStage: this.findArtistStage,
-                            isFullScreen: true,
+                            scrollToTop: true,
                         }
 
                         return withLayout(PageArtist, { props, routeProps })

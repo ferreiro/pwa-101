@@ -67,11 +67,11 @@ const artistCardStyles = {
 
 export function PageArtist({
     artist,
+    artistAgendaItem,
     favorites,
     subscriptions,
     onFavoriteArtist,
     onSubscribeArtist,
-    findArtistStage,
 }) {
     const {
         id,
@@ -83,7 +83,11 @@ export function PageArtist({
         imageHero,
     } = artist;
 
-    const stage = findArtistStage(artist)
+    console.log(artistAgendaItem)
+    
+
+    const stage = artistAgendaItem.stage
+    const tickets = artistAgendaItem.tickets
 
     return (
         <span>
@@ -102,6 +106,7 @@ export function PageArtist({
                     artistId={id}
                     favorites={favorites}
                     subscriptions={subscriptions}
+                    tickets={tickets}
                     onFavoriteArtist={onFavoriteArtist}
                     onSubscribeArtist={onSubscribeArtist}
                 />
