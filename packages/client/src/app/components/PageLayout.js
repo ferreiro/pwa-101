@@ -15,11 +15,17 @@ const actionsWidth = '80px'
 const logoFontSize = '30px'
 const logoColor = colorPrimary
 
+const largeUp = '1000px'
 
 const buttonFavoriteStyle = {
     wrapper: css`
         padding: $spacing1 $spacing2;
         border-radius: 5px;
+
+        @include all and (min-width: ${largeUp}) {
+            max-width: 600px;
+            margin: 0 auto;
+        }
     `,
     active: css`
         background-color: blue;
@@ -86,7 +92,8 @@ function PageHeader({
 }) {
     const isEnabledGoBack = routeProps.match.path !== '/'
     const onClickGoBack = (event) => {
-        routeProps.history.goBack()
+        // NB: You can also use routeProps.history.goBack()
+        routeProps.history.push('/')
     }
 
     return (
