@@ -110,17 +110,17 @@ function PageHeader({
                 <li>
                     <Link
                         className={pageHeaderStyle.actionsLink}
-                        to="/notifications"
+                        to="/favorites"
                     >
-                      🛎
+                      ❤️
                     </Link>  
                 </li>
                 <li>
                     <Link
                         className={pageHeaderStyle.actionsLink}
-                        to="/favorites"
+                        to="/notifications"
                     >
-                      ❤️
+                      🛎
                     </Link>  
                 </li>
             </ul>

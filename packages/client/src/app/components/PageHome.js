@@ -2,39 +2,47 @@ import React from 'react'
 import { css, cx } from 'emotion'
 import { Link } from 'react-router-dom'
 
+import { DATE_MAPPER_TO_HUMAN_TIME } from '../App'
 import { PATH_ARTIST } from '../constants/paths'
-import { spacing1, spacing3 } from '../constants/style'
+import { spacing05, spacing1, spacing2, spacing3 } from '../constants/style'
+
+import { getAgendaGroupByDates } from './get-agenda-group-by-dates'
+
+
+const agendaStyle = {
+    wrapper: css``,
+    date: css``,
+    dateTitle: css`
+        font-size: 20px;
+        margin-bottom: ${spacing2};
+    `,
+}
 
 function Agenda(props) {
     const { artists, agenda, favorites, notifications, onFavoriteArtist, onNotifyArtist } = props
-    const agendaItems = Object.values(agenda)
-
-    // NB: Expected Result
-    // "FRIDAY": [{]}]
-    const agendaItemsGroupedByDates = agendaItems.reduce((accumValue, currentValue) => {
-        const date = currentValue.date
-        const dateItems = accumValue[date] || []
-
-        dateItems.push(currentValue)
-
-        accumValue[date] = dateItems
-
-        return accumValue
-    }, {})
+    
+    const agendaItemsGroupedByDates = getAgendaGroupByDates(agenda)
 
     return (
-        <div>
+        <div className={agendaStyle.wrapper}>
             {Object.keys(agendaItemsGroupedByDates).map((date) => {
                 const dateItems = Object.values(agendaItemsGroupedByDates[date])
 
                 return (
-                    <div key={date}>
-                        <p>Date: {date}</p>
+                    <div
+                        className={agendaStyle.date}
+                        key={date}
+                    >
+                        <p
+                            className={agendaStyle.dateTitle}
+                        >
+                            {DATE_MAPPER_TO_HUMAN_TIME[date]}
+                        </p>
+
+                        TODO: Make this sticky, yay!!
 
                         {dateItems.map((agendaItem) => {
                             const artist = artists[agendaItem.artistId]
-
-                            console.log('agendaItem.artistId', agendaItem.artistId)
 
                             return (
                                 <AgendaItem
@@ -91,11 +99,30 @@ function AgendaItem(props) {
 
 const agendaCardStyles = {
     wrapper: css``,
+    link: css`
+        text-decoration: none;
+    `,
     image: css`
         width: 100%;
         min-height: 180px;
         object-fit: cover;
         object-position: center;
+        margin-bottom: ${spacing1};
+    `,
+    title: css`
+        color: #000;
+        font-size: ${spacing2};
+        margin: 0;
+        margin-bottom: ${spacing1};
+        padding: 0;
+    `,
+    venue: css`
+        color: #000;
+        font-size: ${spacing1};
+        font-weight: 400;
+        margin: 0;
+        margin-bottom: ${spacing1};
+        padding: 0;
     `,
 }
 
@@ -121,16 +148,22 @@ function AgendaCard(props) {
 
     return (
         <div className={agendaCardStyles.wrapper}>
-            <Link to={`${PATH_ARTIST}/${id}`}>
+            <Link
+                to={`${PATH_ARTIST}/${id}`}
+                className={agendaCardStyles.link}
+            >
                 <img
                     className={agendaCardStyles.image}
                     src={imageHero}
                     alt={artist.name}
                 />
-                <h2>{name}</h2>
+                <h2 className={agendaCardStyles.title}>
+                    {name}
+                </h2>
+                <h3 className={agendaCardStyles.venue}>
+                    📍 {stage}
+                </h3>
             </Link>
-
-            <h3>📍 {stage}</h3>
 
             <ArtistActions
                 artistId={id}
@@ -145,11 +178,14 @@ function AgendaCard(props) {
 
 const buttonFavoriteStyle = {
     wrapper: css`
-        padding: $spacing1 $spacing2;
+        border: 2px solid #cecece;
+        background: #fff;
+        padding: ${spacing05} ${spacing1};
         border-radius: 5px;
     `,
     active: css`
-        background-color: blue;
+        border-color: #bb6f83;
+        background-color: #ffbacc;
     `,
     text: css``,
 }
@@ -176,11 +212,14 @@ function ButtonFavorite({
 
 const buttonNotificationStyle = {
     wrapper: css`
-        padding: $spacing1 $spacing2;
+        border: 2px solid #cecece;
+        background: #fff;
+        padding: ${spacing05} ${spacing1};
         border-radius: 5px;
     `,
-    'wrapper:active': css`
-        background-color: blue;
+    active: css`
+        border-color: #c1bf51;
+        background-color: #fffeba;
     `,
     text: css``,
 }
@@ -189,10 +228,14 @@ function ButtonNotify({
     isNotified,
     onClick,
 }) {
+    const wrapperClassName = isNotified
+        ? cx(buttonNotificationStyle.wrapper, buttonNotificationStyle.active) 
+        : buttonFavoriteStyle.wrapper
+
     return (
         <button
             onClick={onClick}
-            className={buttonNotificationStyle.wrapper}
+            className={wrapperClassName}
         >
             <span className={buttonNotificationStyle.text}>
                 {isNotified ? '🔕' : '🔔'}

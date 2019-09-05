@@ -15,6 +15,17 @@ import {
 
 const DATE_FRIDAY = 'date/friday'
 const DATE_SATURDAY = 'date/saturday'
+const DATE_SUNDAY = 'date/sunday'
+
+/**
+ * Returns a human readable date
+ */
+export const DATE_MAPPER_TO_HUMAN_TIME = {
+    [DATE_FRIDAY]: 'Friday 6 September',
+    [DATE_SATURDAY]: 'Saturday 7 September',
+    [DATE_SUNDAY]: 'Sunday 8 September'
+}
+
 
 if ('serviceWorker' in navigator) {
     console.log('Sap2 232')
@@ -123,8 +134,8 @@ function App(props) {
             artistId: 'jorge-ferreiro',
             purchaseUrl: 'eventbrite.com',
         },
-        '3423423': {
-            id: '3423423',
+        '342342233': {
+            id: '342342323423',
             time: '7 PM',
             date: DATE_SATURDAY,
             stage: 'Rock in Rio',
