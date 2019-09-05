@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import isEmpty from 'lodash/isEmpty'
 
+import {getStaticMapsUrl} from './get-static-maps-url'
 import artists from './__fixtures__/artists.json'
 
 export const debug = process.env === 'production'
@@ -42,7 +43,10 @@ const STAGE_ROCK_IN_RIO = 'building/rockInRio'
 export const STAGE_MAPPER = {
     [STAGE_ROCK_IN_RIO]: {
         text: 'Rock in Rio',
-        googleMapsUrl: 'Bla bla bla',
+        googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=rock+in+rio',
+        staticMapUrls: getStaticMapsUrl({
+
+        })
     }
 }
 
@@ -174,6 +178,7 @@ class App extends PureComponent {
             <PageLayout
                 title={props.title}
                 routeProps={routeProps}
+                isFullScreen={props.isFullScreen}
             >
                 <Component
                     {...routeProps}
@@ -227,7 +232,7 @@ class App extends PureComponent {
                         // const artist = artists[]
                         const props = {
                             artist,
-                            title: artist.name,
+                            // title: artist.name,
                             // agenda: agenda,
                             onFavoriteArtist: this.onFavoriteArtist,
                             onSubscribeArtist: this.onSubscribeArtist,
@@ -235,6 +240,7 @@ class App extends PureComponent {
                             subscriptions,
                             artists,
                             findArtistStage: this.findArtistStage,
+                            isFullScreen: true,
                         }
 
                         return withLayout(PageArtist, { props, routeProps })

@@ -3,23 +3,43 @@ import { css } from 'emotion'
 
 import { ArtistActions } from './ArtistActions'
 import { STAGE_MAPPER } from '../App'
-import { spacing1 } from '../constants/style'
+import { spacing1, spacing2 } from '../constants/style'
+
+const artistLocationStyles = {
+    wrapper: css``,
+    mapImage: css`
+        width: 100%;
+        min-height: 270px;
+        object-fit: cover;
+        object-position: center;
+        margin-top: ${spacing1};
+        margin-bottom: ${spacing1};
+    `,
+}
 
 function ArtistLocation({
     stage,
 }) {
-    const { googleMapsUrl, text } = STAGE_MAPPER[stage]
+    const { googleMapsUrl, staticMapUrls, text } = STAGE_MAPPER[stage]
 
     return (
         <div>
             <span>
-                Building: {text}
+                <b>Building:</b> {text}
+                <img src="" />
 
                 {googleMapsUrl && (
                     <a href={googleMapsUrl} target="_blank" rel="noopener noreferrer">
-                        Open Google Maps
-
-                        TODO: Add image...
+                        <span>                        
+                            {staticMapUrls && (
+                                <img
+                                    alt="Static map"
+                                    className={artistLocationStyles.mapImage}
+                                    src={staticMapUrls}
+                                />
+                            )}
+                        </span>
+                        <p>Open Google Maps</p>
                     </a>
                 )}
             </span>
@@ -34,8 +54,15 @@ const artistCardStyles = {
         min-height: 270px;
         object-fit: cover;
         object-position: center;
-        margin-bottom: ${spacing1};
     `,
+    title: css`
+        margin: 0;
+        margin-bottom: ${spacing2};
+        padding: 0;
+    `,
+    container: css`
+        padding: 2em;
+    `
 }
 
 export function PageArtist({
@@ -66,30 +93,33 @@ export function PageArtist({
                 alt={artist.name}
             />
 
-            <ArtistActions
-                artistId={id}
-                favorites={favorites}
-                subscriptions={subscriptions}
-                onFavoriteArtist={onFavoriteArtist}
-                onSubscribeArtist={onSubscribeArtist}
-            />
+            <div className={artistCardStyles.container}>
+                <h1 className={artistCardStyles.title}>
+                    {artist.name}
+                </h1>
 
-            <h4>
-                Location
-            </h4>
+                <ArtistActions
+                    artistId={id}
+                    favorites={favorites}
+                    subscriptions={subscriptions}
+                    onFavoriteArtist={onFavoriteArtist}
+                    onSubscribeArtist={onSubscribeArtist}
+                />
 
-            <ArtistLocation
-                stage={stage}
-            />
+                <h4>
+                    About the event:
+                </h4>
 
-            <h4>
-                Biography
-            </h4>
-            <p
-                dangerouslySetInnerHTML={{
-                    __html: biography
-                }}
-            />
+                <p
+                    dangerouslySetInnerHTML={{
+                        __html: biography
+                    }}
+                />
+
+                <ArtistLocation
+                    stage={stage}
+                />
+            </div>
         </span>
     )
 }

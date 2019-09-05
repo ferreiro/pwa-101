@@ -3,7 +3,7 @@ import isEmpty from 'lodash'
 import { css } from 'emotion'
 import { Link } from 'react-router-dom'
 
-import { PATH_ARTIST } from '../App'
+import { PATH_ARTIST } from '../constants/paths'
 import { spacing1,spacing2, spacing3 } from '../constants/style'
 import { ArtistActions } from './ArtistActions'
 

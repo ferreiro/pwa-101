@@ -91,7 +91,7 @@ const pageHeaderStyle = {
     `,
 }
 
-function PageHeader({
+export function PageHeader({
     routeProps,
 }) {
     const isEnabledGoBack = routeProps.match.path !== '/'
@@ -143,7 +143,6 @@ function PageHeader({
 const PageTitleStyles = {
     title: css`
         font-size: 2em;
-        text-transform: uppercase;
         font-weight: bold;
         margin-bottom: ${spacing2};
     `,
@@ -167,24 +166,33 @@ const pageLayoutStyle = {
     container: css`
         padding: 2em;
     `,
+    containerFullScreen: css`
+    `
 }
 
 export function PageLayout({
     routeProps,
     children,
     title,
+    isFullScreen,
 }) {
-    console.log('routeProps', routeProps)
+    const containerWrapper = isFullScreen
+        ? pageLayoutStyle.containerFullScreen
+        : pageLayoutStyle.container
 
     return (
         <div className={pageLayoutStyle.wrapper}>
             <PageHeader
                 routeProps={routeProps}
             />
-            <div className={pageLayoutStyle.container}>
-                <PageTitle
-                    title={title}
-                />
+
+            <div className={containerWrapper}>
+                {title && (
+                    <PageTitle
+                        title={title}
+                    />
+                )}
+
                 {children}
             </div>
         </div>
