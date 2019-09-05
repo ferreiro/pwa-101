@@ -23,6 +23,7 @@ module.exports = {
         'react'
     ],
     'rules': {
+        'react/prop-types': ['off'],
         'object-curly-spacing': [
             2,
             'always',
