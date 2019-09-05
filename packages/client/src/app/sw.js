@@ -1,5 +1,7 @@
 'use strict'
 
+console.log('I am a new service worker :)')
+
 self.addEventListener('fetch', (event) => {
     const url = event.request.url;
 
