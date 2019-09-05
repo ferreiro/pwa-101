@@ -9,6 +9,7 @@
     "dev:backend:server": "yarn workspace server start",
     "backend:server": "yarn workspace server start",
     "build": "yarn workspace client build",
+    "clean": "yarn workspace client clean",
     "start": "yarn build && yarn backend:server"
   },
   "workspaces": [
