@@ -4,3 +4,5 @@ export const spacing2 = '24px'
 export const spacing3 = '36px'
 
 export const colorPrimary = '#ab2346'
+
+export const containerMaxWidth = '600px'

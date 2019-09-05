@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { css } from 'emotion'
 
 import {
+    containerMaxWidth,
     colorPrimary,
     spacing2,
 } from '../constants/style'
@@ -160,13 +161,16 @@ function PageTitle({
 
 const pageLayoutStyle = {
     wrapper: css`
-        font-family: 'Roboto', sans-serif;
-        font-family: 'Open Sans', sans-serif;
+        width: 100%;
     `,
     container: css`
         padding: 2em;
+        max-width: ${containerMaxWidth};
+        margin: 0 auto;
     `,
     containerFullScreen: css`
+        max-width: ${containerMaxWidth};
+        margin: 0 auto;
     `
 }
 

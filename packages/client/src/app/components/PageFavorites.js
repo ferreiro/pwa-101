@@ -3,7 +3,7 @@ import isEmpty from 'lodash/isEmpty'
 import { css } from 'emotion'
 import { Link } from 'react-router-dom'
 
-import { PATH_ARTIST } from '../constants/paths'
+import { PATH_ARTIST, PATH_HOME } from '../constants/paths'
 import { spacing1,spacing2, spacing3 } from '../constants/style'
 import { ArtistActions } from './ArtistActions'
 
@@ -66,11 +66,6 @@ function CardFavorite({
                 >
                     {artistName}
                 </h2>
-                <h3
-                    className={favoriteCardStyles.venue}
-                >
-                    {/* 📍 {STAGE_MAPPER[stage].text} */}
-                </h3>
             </Link>
 
             <ArtistActions
@@ -93,7 +88,13 @@ export function PageFavorites({
 }) {
     if (isEmpty(favorites)) {
         return (
-            <p>You don't have any favorites... Go and add some!</p>
+            <p>
+                You do not have any favorites... Go and add some!
+                <br /><br />
+                <Link to={PATH_HOME}>
+                    🤗 Explore the agenda >
+                </Link>
+            </p>
         )
     }
 
