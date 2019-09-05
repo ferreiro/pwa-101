@@ -1,9 +1,15 @@
 import React from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
+import isEmpty from 'lodash/isEmpty'
+
+export const debug = process.env === 'production'
+    ? () => {}
+    : console.log
 
 import { PageLayout } from './components/PageLayout'
 import { PageHome } from './components/PageHome'
 import { PageArtist } from './components/PageArtist'
+import { PageNotFound } from './components/PageNotFound'
 import { PageNotifications } from './components/PageNotifications'
 import { PageFavorites } from './components/PageFavorites'
 import {
@@ -12,6 +18,9 @@ import {
     PATH_NOTIFICATIONS,
     PATH_FAVORITES,
 } from './constants/paths'
+
+export const NOTIFICATION_ARTIST = 'notification/artist'
+export const NOTIFICATION_PUSH = 'notification/push'
 
 const DATE_FRIDAY = 'date/friday'
 const DATE_SATURDAY = 'date/saturday'
@@ -26,25 +35,32 @@ export const DATE_MAPPER_TO_HUMAN_TIME = {
     [DATE_SUNDAY]: 'Sunday 8 September'
 }
 
+const STAGE_ROCK_IN_RIO = 'building/rockInRio'
+
+export const STAGE_MAPPER = {
+    [STAGE_ROCK_IN_RIO]: {
+        text: 'Rock in Rio',
+        googleMapsUrl: 'Bla bla bla',
+    }
+}
 
 if ('serviceWorker' in navigator) {
-    console.log('Sap2 232')
-    console.log('Trying to register a service worker yay!')
-    navigator.serviceWorker.register('sw.js')
+    debug('Trying to register a service worker yay!')
+    navigator.serviceWorker.register('/static/sw.js')
         .then((registration) => {
-            console.log('registration', registration)
-            registration.showNotification('pene',{
-                'body': 'Did you make a $1,000,000 purchase at Dr. Evil...',
-                'icon': 'images/ccard.png',
-                'vibrate': [200, 100, 200, 100, 200, 100, 400],
-                'tag': 'request',
-                'actions': [
-                    { 'action': 'yes', 'title': 'Yes', 'icon': 'images/yes.png' },
-                    { 'action': 'no', 'title': 'No', 'icon': 'images/no.png' }
-                ]
-            })
+            debug('registration', registration)
+            // registration.showNotification('pene',{
+            //     'body': 'Did you make a $1,000,000 purchase at Dr. Evil...',
+            //     'icon': 'images/ccard.png',
+            //     'vibrate': [200, 100, 200, 100, 200, 100, 400],
+            //     'tag': 'request',
+            //     'actions': [
+            //         { 'action': 'yes', 'title': 'Yes', 'icon': 'images/yes.png' },
+            //         { 'action': 'no', 'title': 'No', 'icon': 'images/no.png' }
+            //     ]
+            // })
         })
-        .catch((error) => console.log(error))
+        .catch((error) => debug(error))
 }
 
 // state = {
@@ -102,7 +118,8 @@ function App(props) {
             name: 'Jorge Ferreiro',
             city: 'Madrid, Spain',
             country: '🇪🇸',
-            imageHero: '/static/images/crystal_fighters.jpg',
+            // TODO: Add title of the talk...
+            imageHero: '/static/images/jorge_ferreiro_at_pennapps.jpg',
             imageIcon: '',
             biography: 'This is my super biography<br /><br />Hi there!',
         },
@@ -122,7 +139,15 @@ function App(props) {
             id: '23424234',
             time: '5 PM',
             date: DATE_FRIDAY,
-            stage: 'Rock in Rio',
+            stage: STAGE_ROCK_IN_RIO,
+            artistId: 'venmo-232',
+            purchaseUrl: 'eventbrite.com',
+        },
+        'wsfefwefweefewfe': {
+            id: 'wsfefwefweefewfe',
+            time: '6 PM',
+            date: DATE_FRIDAY,
+            stage: STAGE_ROCK_IN_RIO,
             artistId: 'venmo-232',
             purchaseUrl: 'eventbrite.com',
         },
@@ -130,35 +155,56 @@ function App(props) {
             id: '3423423',
             time: '7 PM',
             date: DATE_FRIDAY,
-            stage: 'Rock in Rio',
+            stage: STAGE_ROCK_IN_RIO,
             artistId: 'jorge-ferreiro',
             purchaseUrl: 'eventbrite.com',
         },
-        '342342233': {
-            id: '342342323423',
-            time: '7 PM',
-            date: DATE_SATURDAY,
-            stage: 'Rock in Rio',
-            artistId: 'jorge-ferreiro',
-            purchaseUrl: 'eventbrite.com',
-        }
+    }
+
+    const findArtistStage = (artist) => {
+        const artistId = artist.id
+        const matchedAgendaItem = Object.values(agenda).find((agendaItem) =>
+            agendaItem.artistId === artistId
+        )
+
+        return matchedAgendaItem.stage || ''
     }
 
     // TODO: Move into the state...
     let favorites = {
         'jorge-ferreiro': true,
+        'venmo-232': true,
     }
 
     // TODO: Move into the state...
     let notifications = {
         'jorge-ferreiro': {
+            type: NOTIFICATION_ARTIST,
+            artistId: 'jorge-ferreiro',
+            frequency: 'once',
+            alertBefore: 3600,
+        },
+        'randomId': {
+            type: NOTIFICATION_PUSH,
+            frequency: 'once',
+            alertBefore: 3600,
+        },
+        'jorge-ferreiro-23': {
+            type: NOTIFICATION_ARTIST,
+            artistId: 'jorge-ferreiro',
+            frequency: 'once',
+            alertBefore: 3600,
+        },
+        'jorge-ferreiro-234': {
+            type: NOTIFICATION_ARTIST,
+            artistId: 'jorge-ferreiro',
             frequency: 'once',
             alertBefore: 3600,
         },
     }
 
     const addFavoriteArtist = (artistId) => {
-        console.log('favoring an artist. yay!')
+        debug('favoring an artist. yay!')
 
         const updatedFavorites = {
             ...favorites,
@@ -171,7 +217,7 @@ function App(props) {
     }
 
     const removeFavoriteArtist = (artistId) => {
-        console.log('Removing artist from favorites. yay!')
+        debug('Removing artist from favorites. yay!')
 
         if (!(artistId in favorites)) {
             // SKIP: Artist does not exist...
@@ -196,11 +242,11 @@ function App(props) {
     } 
 
     const addNotificationArtist = (artistId) => {
-        console.log('adding notification artist. yay!')
+        debug('adding notification artist. yay!')
     }
-    
+
     const removeNotificationArtist = (artistId) => {
-        console.log('removing new artist. yay!')
+        debug('removing new artist. yay!')
     }
 
     const onNotifyArtist = (artistId) => {
@@ -249,6 +295,14 @@ function App(props) {
                     const artistId = routeProps.match.params.id
                     const artist = artists[artistId] || {}
 
+                    if (isEmpty(artist)) {
+                        const props = {
+                            
+                        }
+
+                        return withLayout(PageNotFound, { props, routeProps })
+                    }
+
                     // const artist = artists[]
                     const props = {
                         artist,
@@ -256,6 +310,10 @@ function App(props) {
                         // agenda: agenda,
                         onFavoriteArtist: onFavoriteArtist,
                         onNotifyArtist: onNotifyArtist,
+                        favorites,
+                        notifications,
+                        artists,
+                        findArtistStage,
                     }
 
                     return withLayout(PageArtist, { props, routeProps })
@@ -266,6 +324,7 @@ function App(props) {
                 exact
                 render={(routeProps) => {
                     const props = {
+                        artists,
                         title: 'Notifications',
                         notifications,
                         onFavoriteArtist: onFavoriteArtist,
@@ -280,8 +339,10 @@ function App(props) {
                 exact
                 render={(routeProps) => {
                     const props = {
+                        artists,
                         title: 'Favorites',
                         favorites,
+                        notifications,
                         onFavoriteArtist: onFavoriteArtist,
                         onNotifyArtist: onNotifyArtist,
                     }
