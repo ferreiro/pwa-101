@@ -5,6 +5,7 @@ import { css } from 'emotion'
 import {
     containerMaxWidth,
     colorPrimary,
+    spacing05,
     spacing2,
 } from '../constants/style'
 
@@ -22,9 +23,11 @@ const logoColor = colorPrimary
 
 const largeUp = '1000px'
 
-const buttonFavoriteStyle = {
+const buttonCloseStyle = {
     wrapper: css`
-        padding: $spacing1 $spacing2;
+        padding: ${spacing05};
+        border: 0;
+        background: #f4f4f4;
         border-radius: 5px;
 
         @include all and (min-width: ${largeUp}) {
@@ -44,8 +47,9 @@ function ButtonGoBack({
     return (
         <button
             onClick={onClick}
+            className={buttonCloseStyle.wrapper}
         >
-            <span className={buttonFavoriteStyle.text}>
+            <span className={buttonCloseStyle.text}>
                 ⬅ Back
             </span>
         </button>
