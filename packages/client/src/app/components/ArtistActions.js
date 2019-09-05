@@ -2,6 +2,8 @@ import React from 'react'
 import { css, cx } from 'emotion'
 
 import { spacing05, spacing1 } from '../constants/style'
+import { NOTIFICATION_ARTIST } from '../App'
+import { createArtistNotification } from '../create-notification'
 
 const buttonFavoriteStyle = {
     wrapper: css`
@@ -37,7 +39,7 @@ function ButtonFavorite({
     )
 }
 
-const buttonNotificationStyle = {
+const buttonsubscriptionstyle = {
     wrapper: css`
         border: 2px solid #cecece;
         background: #fff;
@@ -56,7 +58,7 @@ function ButtonNotify({
     onClick,
 }) {
     const wrapperClassName = isNotified
-        ? cx(buttonNotificationStyle.wrapper, buttonNotificationStyle.active) 
+        ? cx(buttonsubscriptionstyle.wrapper, buttonsubscriptionstyle.active) 
         : buttonFavoriteStyle.wrapper
 
     return (
@@ -64,7 +66,7 @@ function ButtonNotify({
             onClick={onClick}
             className={wrapperClassName}
         >
-            <span className={buttonNotificationStyle.text}>
+            <span className={buttonsubscriptionstyle.text}>
                 {isNotified ? '🔕' : '🔔'}
             </span>
         </button>
@@ -87,19 +89,30 @@ export function ArtistActions({
     artistId,
     purchaseUrl,
     favorites,
-    notifications,
+    subscriptions,
     onFavoriteArtist,
-    onNotifyArtist,
+    onSubscribeArtist,
 }) {
-    const isFavorited = favorites[artistId] === true
-    const isNotified = notifications[artistId] === true
+    console.group('ArtistActions')
+    console.log('artistId', artistId)
+    console.log('subscriptions', subscriptions)
+    console.log('favorites', favorites)
+    console.groupEnd('subscriptions', subscriptions)
+
+    const isFavorited = artistId in favorites
+    const isNotified = artistId in subscriptions
 
     const _handleFavoriteArtist = (event) => {
         onFavoriteArtist(artistId)
     }
 
     const _handleNotifyArtist = (event) => {
-        onNotifyArtist(artistId)
+        const newNotification = createArtistNotification({
+            artistId,
+            type: NOTIFICATION_ARTIST,
+        })
+
+        onSubscribeArtist(newNotification)
     }
 
     return (

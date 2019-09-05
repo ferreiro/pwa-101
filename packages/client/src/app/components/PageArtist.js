@@ -41,9 +41,9 @@ const artistCardStyles = {
 export function PageArtist({
     artist,
     favorites,
-    notifications,
+    subscriptions,
     onFavoriteArtist,
-    onNotifyArtist,
+    onSubscribeArtist,
     findArtistStage,
 }) {
     const {
@@ -69,9 +69,9 @@ export function PageArtist({
             <ArtistActions
                 artistId={id}
                 favorites={favorites}
-                notifications={notifications}
+                subscriptions={subscriptions}
                 onFavoriteArtist={onFavoriteArtist}
-                onNotifyArtist={onNotifyArtist}
+                onSubscribeArtist={onSubscribeArtist}
             />
 
             <h4>

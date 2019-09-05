@@ -1,5 +1,5 @@
 import React from 'react'
-import isEmpty from 'lodash'
+import isEmpty from 'lodash/isEmpty'
 import { css } from 'emotion'
 import { Link } from 'react-router-dom'
 
@@ -102,20 +102,6 @@ export function PageNotifications({
     artists,
     notifications,
 }) {
-    console.log('notifications')
-    console.log(notifications)
-
-    return (
-        <div>
-            {Object.values(notifications).map((notification) => (
-                <NotificationProvider
-                    notification={notification}
-                    artists={artists}
-                />
-            ))}
-        </div>
-    )
-
     if (isEmpty(notifications)) {
         return (
             <div>
@@ -124,4 +110,16 @@ export function PageNotifications({
             </div>
         )
     }
+
+    return (
+        <div>
+            {Object.values(notifications).map((notification) => (
+                <NotificationProvider
+                    key={notification.id}
+                    notification={notification}
+                    artists={artists}
+                />
+            ))}
+        </div>
+    )
 }

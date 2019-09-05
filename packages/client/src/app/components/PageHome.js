@@ -28,7 +28,7 @@ const agendaStyle = {
 }
 
 function Agenda(props) {
-    const { artists, agenda, favorites, notifications, onFavoriteArtist, onNotifyArtist } = props
+    const { artists, agenda, favorites, subscriptions, onFavoriteArtist, onSubscribeArtist } = props
     
     const agendaItemsGroupedByDates = getAgendaGroupByDates(agenda)
 
@@ -59,9 +59,9 @@ function Agenda(props) {
                                     {...agendaItem}
                                     artist={artist}
                                     favorites={favorites}
-                                    notifications={notifications}
+                                    subscriptions={subscriptions}
                                     onFavoriteArtist={onFavoriteArtist}
-                                    onNotifyArtist={onNotifyArtist}
+                                    onSubscribeArtist={onSubscribeArtist}
                                 />
                             )
                         })}
@@ -140,9 +140,9 @@ function AgendaCard(props) {
         stage,
         artist = {},
         favorites,
-        notifications,
+        subscriptions,
         onFavoriteArtist,
-        onNotifyArtist,
+        onSubscribeArtist,
         purchaseUrl,
     } = props
 
@@ -177,9 +177,9 @@ function AgendaCard(props) {
             <ArtistActions
                 artistId={id}
                 favorites={favorites}
-                notifications={notifications}
+                subscriptions={subscriptions}
                 onFavoriteArtist={onFavoriteArtist}
-                onNotifyArtist={onNotifyArtist}
+                onSubscribeArtist={onSubscribeArtist}
             />
         </div>
     )
@@ -189,9 +189,9 @@ export function PageHome({
     artists,
     agenda,
     favorites,
-    notifications,
+    subscriptions,
     onFavoriteArtist,
-    onNotifyArtist,
+    onSubscribeArtist,
 }) {
     return (
         <div>
@@ -201,9 +201,9 @@ export function PageHome({
                 artists={artists}
                 agenda={agenda}
                 favorites={favorites}
-                notifications={notifications}
+                subscriptions={subscriptions}
                 onFavoriteArtist={onFavoriteArtist}
-                onNotifyArtist={onNotifyArtist}
+                onSubscribeArtist={onSubscribeArtist}
             />
         </div>
     )

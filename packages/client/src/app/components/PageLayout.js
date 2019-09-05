@@ -4,9 +4,13 @@ import { css } from 'emotion'
 
 import {
     colorPrimary,
-    spacing1,
     spacing2,
 } from '../constants/style'
+
+import {
+    PATH_NOTIFICATIONS,
+    PATH_FAVORITES
+} from '../constants/paths'
 
 const goBackWidth = '80px'
 
@@ -117,7 +121,7 @@ function PageHeader({
                 <li>
                     <Link
                         className={pageHeaderStyle.actionsLink}
-                        to="/favorites"
+                        to={PATH_FAVORITES}
                     >
                       ❤️
                     </Link>  
@@ -125,7 +129,7 @@ function PageHeader({
                 <li>
                     <Link
                         className={pageHeaderStyle.actionsLink}
-                        to="/notifications"
+                        to={PATH_NOTIFICATIONS}
                     >
                       🛎
                     </Link>  

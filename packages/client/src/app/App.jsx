@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { PureComponent } from 'react'
 import { Switch, Route, withRouter } from 'react-router-dom'
 import isEmpty from 'lodash/isEmpty'
+
+import artists from './__fixtures__/artists.json'
 
 export const debug = process.env === 'production'
     ? () => {}
@@ -63,295 +65,217 @@ if ('serviceWorker' in navigator) {
         .catch((error) => debug(error))
 }
 
-// state = {
-//     // NB: List of arists that you like and wanna keep
-//     // track of them
-//     // NB2: Ideally this can be a Set, so we make sure
-//     // we don't duplicate the arist lists.
-//     // We use a dictionary, so we can access in constant
-//     // time the artist who is favoited.
-//     favorites: {
-//         'jorge-ferreiro': true,
-//     },
-
-//     // NB: list of artist to get notifications 30 minutes
-//     // before the concert starts.
-//     notifications: {
-//         "jorge-ferreiro": true,
-//     }
-// }
-
-// onFavoriteArtist = (artistId) => {
-//     // TODO: Check first if the artist exists in the list
-//     // TODO: THen if not, add it, otherwise dont;
-//     if (artistId in this.state.favorites) {
-//         return
-//     }
-
-//     const favorites = {
-//         ...this.state.favorites,
-//         [artistId]: true,
-//     }
-    
-//     this.setState({favorites})
-// }
-
-// onRemoveFavoriteArtist = (artistId) => {
-//     if (!artistId in this.state.favorites) {
-//         // SKIP: Artist does not exist...
-//         return
-//     }
-    
-//     const favorites = {
-//         ...this.state.favorites
-//     }
-
-//     delete favorites[artistId]
-
-//     this.setState({favorites})
-// }
-
-function App(props) {
-    const artists = {
-        'jorge-ferreiro': {
-            id: 'jorge-ferreiro',
-            name: 'Jorge Ferreiro',
-            city: 'Madrid, Spain',
-            country: '🇪🇸',
-            // TODO: Add title of the talk...
-            imageHero: '/static/images/jorge_ferreiro_at_pennapps.jpg',
-            imageIcon: '',
-            biography: 'This is my super biography<br /><br />Hi there!',
+class App extends PureComponent {
+    state = {
+        artists,
+        agenda: {
+            '23424234': {
+                id: '23424234',
+                time: '5 PM',
+                date: DATE_FRIDAY,
+                stage: STAGE_ROCK_IN_RIO,
+                artistId: 'venmo-232',
+                purchaseUrl: 'eventbrite.com',
+            },
+            'wsfefwefweefewfe': {
+                id: 'wsfefwefweefewfe',
+                time: '6 PM',
+                date: DATE_FRIDAY,
+                stage: STAGE_ROCK_IN_RIO,
+                artistId: 'venmo-232',
+                purchaseUrl: 'eventbrite.com',
+            },
+            '3423423': {
+                id: '3423423',
+                time: '7 PM',
+                date: DATE_FRIDAY,
+                stage: STAGE_ROCK_IN_RIO,
+                artistId: 'jorge-ferreiro',
+                purchaseUrl: 'eventbrite.com',
+            },
         },
-        'venmo-232': {
-            id: 'venmo-232',
-            name: 'Venmo brothers',
-            city: 'Madrid, Spain',
-            country: '🇪🇸',
-            imageHero: '/static/images/crystal_fighters.jpg',
-            imageIcon: '',
-            biography: 'This is my super biography<br /><br />Hi there!',
-        }
+        favorites: {},
+        subscriptions: {}
     }
 
-    const agenda = {
-        '23424234': {
-            id: '23424234',
-            time: '5 PM',
-            date: DATE_FRIDAY,
-            stage: STAGE_ROCK_IN_RIO,
-            artistId: 'venmo-232',
-            purchaseUrl: 'eventbrite.com',
-        },
-        'wsfefwefweefewfe': {
-            id: 'wsfefwefweefewfe',
-            time: '6 PM',
-            date: DATE_FRIDAY,
-            stage: STAGE_ROCK_IN_RIO,
-            artistId: 'venmo-232',
-            purchaseUrl: 'eventbrite.com',
-        },
-        '3423423': {
-            id: '3423423',
-            time: '7 PM',
-            date: DATE_FRIDAY,
-            stage: STAGE_ROCK_IN_RIO,
-            artistId: 'jorge-ferreiro',
-            purchaseUrl: 'eventbrite.com',
-        },
-    }
-
-    const findArtistStage = (artist) => {
+    findArtistStage = (artist) => {
         const artistId = artist.id
-        const matchedAgendaItem = Object.values(agenda).find((agendaItem) =>
+        const matchedAgendaItem = Object.values(this.state.agenda).find((agendaItem) =>
             agendaItem.artistId === artistId
         )
 
         return matchedAgendaItem.stage || ''
     }
 
-    // TODO: Move into the state...
-    let favorites = {
-        'jorge-ferreiro': true,
-        'venmo-232': true,
-    }
+    onFavoriteArtist = (artistId) => {
+        if (artistId in this.state.favorites) {
+            return this.removeFavoriteArtist(artistId)
+        }
 
-    // TODO: Move into the state...
-    let notifications = {
-        'jorge-ferreiro': {
-            type: NOTIFICATION_ARTIST,
-            artistId: 'jorge-ferreiro',
-            frequency: 'once',
-            alertBefore: 3600,
-        },
-        'randomId': {
-            type: NOTIFICATION_PUSH,
-            frequency: 'once',
-            alertBefore: 3600,
-        },
-        'jorge-ferreiro-23': {
-            type: NOTIFICATION_ARTIST,
-            artistId: 'jorge-ferreiro',
-            frequency: 'once',
-            alertBefore: 3600,
-        },
-        'jorge-ferreiro-234': {
-            type: NOTIFICATION_ARTIST,
-            artistId: 'jorge-ferreiro',
-            frequency: 'once',
-            alertBefore: 3600,
-        },
+        return this.addFavoriteArtist(artistId)
     }
-
-    const addFavoriteArtist = (artistId) => {
+    
+    addFavoriteArtist = (artistId) => {
         debug('favoring an artist. yay!')
 
-        const updatedFavorites = {
-            ...favorites,
-            // ...this.state.favorites,
+        const favorites = {
+            ...this.state.favorites,
             [artistId]: true,
         }
         
-        favorites = updatedFavorites
-        // this.setState({favorites})
+        this.setState({favorites})
     }
 
-    const removeFavoriteArtist = (artistId) => {
+    removeFavoriteArtist = (artistId) => {
         debug('Removing artist from favorites. yay!')
 
-        if (!(artistId in favorites)) {
-            // SKIP: Artist does not exist...
-            return
+        const favorites = {
+            ...this.state.favorites
         }
 
-        const updatedFavorites = {
-            ...favorites
-        }
+        delete favorites[artistId]
 
-        delete updatedFavorites[artistId]
-
-        favorites = updatedFavorites
+        this.setState({favorites})
     } 
 
-    const onFavoriteArtist = (artistId) => {
-        if (artistId in favorites) {
-            return removeFavoriteArtist(artistId)
+    onSubscribeArtist = (subscription) => {
+        if (subscription.id in this.state.subscriptions) {
+            return this.removeSubscription(subscription)
         }
 
-        return addFavoriteArtist(artistId)
-    } 
-
-    const addNotificationArtist = (artistId) => {
-        debug('adding notification artist. yay!')
+        return this.addSubscription(subscription)
     }
 
-    const removeNotificationArtist = (artistId) => {
+    addSubscription = (subscription) => {
+        debug('adding subscription artist. yay!')
+
+        this.setState((state, props) => ({
+            subscriptions: {
+                ...state.subscriptions,
+                ...{[subscription.id]: subscription},
+            },
+        }))
+    }
+
+    removeSubscription = (subscription) => {
         debug('removing new artist. yay!')
+
+        this.setState((state, props) => {
+            const subscriptions = {...state.subscriptions}
+
+            delete subscriptions[subscription.id]
+
+            return { subscriptions }
+        })
     }
 
-    const onNotifyArtist = (artistId) => {
-        if (artistId in notifications) {
-            return removeNotificationArtist(artistId)
-        }
+    render() {
+        const withLayout = (Component, { props = {}, routeProps = {} }) => (
+            <PageLayout
+                title={props.title}
+                routeProps={routeProps}
+            >
+                <Component
+                    {...routeProps}
+                    {...props}
+                />
+            </PageLayout>
+        )
 
-        return addNotificationArtist(artistId)
-    }
+        const {
+            agenda,
+            artists,
+            favorites,
+            subscriptions
+        } = this.state;
 
-    const withLayout = (Component, { props = {}, routeProps = {} }) => (
-        <PageLayout
-            title={props.title}
-            routeProps={routeProps}
-        >
-            <Component
-                {...routeProps}
-                {...props}
-            />
-        </PageLayout>
-    )
-
-    return (
-        <Switch>
-            <Route
-                path={PATH_HOME}
-                exact
-                render={(routeProps) => {
-                    const props = {
-                        title: 'Agenda',
-                        agenda: agenda,
-                        onFavoriteArtist: onFavoriteArtist,
-                        onNotifyArtist: onNotifyArtist,
-                        favorites,
-                        notifications,
-                        artists,
-                    }
-
-                    return withLayout(PageHome, { props, routeProps })
-                }}
-            />
-            <Route
-                path={`${PATH_ARTIST}/:id`}
-                exact
-                render={(routeProps) => {
-                    const artistId = routeProps.match.params.id
-                    const artist = artists[artistId] || {}
-
-                    if (isEmpty(artist)) {
+        return (
+            <Switch>
+                <Route
+                    path={PATH_HOME}
+                    exact
+                    render={(routeProps) => {
                         const props = {
-                            
+                            title: 'Agenda',
+                            agenda: agenda,
+                            onFavoriteArtist: this.onFavoriteArtist,
+                            onSubscribeArtist: this.onSubscribeArtist,
+                            favorites,
+                            subscriptions,
+                            artists,
                         }
 
-                        return withLayout(PageNotFound, { props, routeProps })
-                    }
+                        return withLayout(PageHome, { props, routeProps })
+                    }}
+                />
 
-                    // const artist = artists[]
-                    const props = {
-                        artist,
-                        title: artist.name,
-                        // agenda: agenda,
-                        onFavoriteArtist: onFavoriteArtist,
-                        onNotifyArtist: onNotifyArtist,
-                        favorites,
-                        notifications,
-                        artists,
-                        findArtistStage,
-                    }
+                <Route
+                    path={`${PATH_ARTIST}/:id`}
+                    exact
+                    render={(routeProps) => {
+                        const artistId = routeProps.match.params.id
+                        const artist = artists[artistId] || {}
 
-                    return withLayout(PageArtist, { props, routeProps })
-                }}
-            />
-            <Route
-                path={PATH_NOTIFICATIONS}
-                exact
-                render={(routeProps) => {
-                    const props = {
-                        artists,
-                        title: 'Notifications',
-                        notifications,
-                        onFavoriteArtist: onFavoriteArtist,
-                        onNotifyArtist: onNotifyArtist,
-                    }
+                        if (isEmpty(artist)) {
+                            const props = {
+                                
+                            }
 
-                    return withLayout(PageNotifications, { props, routeProps })
-                }}
-            />
-            <Route
-                path={PATH_FAVORITES}
-                exact
-                render={(routeProps) => {
-                    const props = {
-                        artists,
-                        title: 'Favorites',
-                        favorites,
-                        notifications,
-                        onFavoriteArtist: onFavoriteArtist,
-                        onNotifyArtist: onNotifyArtist,
-                    }
+                            return withLayout(PageNotFound, { props, routeProps })
+                        }
 
-                    return withLayout(PageFavorites, { props, routeProps })
-                }}
-            />
-        </Switch>
-    )
+                        // const artist = artists[]
+                        const props = {
+                            artist,
+                            title: artist.name,
+                            // agenda: agenda,
+                            onFavoriteArtist: this.onFavoriteArtist,
+                            onSubscribeArtist: this.onSubscribeArtist,
+                            favorites,
+                            subscriptions,
+                            artists,
+                            findArtistStage: this.findArtistStage,
+                        }
+
+                        return withLayout(PageArtist, { props, routeProps })
+                    }}
+                />
+
+                <Route
+                    path={PATH_NOTIFICATIONS}
+                    exact
+                    render={(routeProps) => {
+                        const props = {
+                            artists,
+                            title: 'Notifications',
+                            subscriptions,
+                            onFavoriteArtist: this.onFavoriteArtist,
+                            onSubscribeArtist: this.onSubscribeArtist,
+                        }
+
+                        return withLayout(PageNotifications, { props, routeProps })
+                    }}
+                />
+
+                <Route
+                    path={PATH_FAVORITES}
+                    exact
+                    render={(routeProps) => {
+                        const props = {
+                            artists,
+                            title: 'Favorites',
+                            favorites,
+                            subscriptions,
+                            onFavoriteArtist: this.onFavoriteArtist,
+                            onSubscribeArtist: this.onSubscribeArtist,
+                        }
+
+                        return withLayout(PageFavorites, { props, routeProps })
+                    }}
+                />
+            </Switch>
+        )
+    }
 }
 
 export default withRouter(App)

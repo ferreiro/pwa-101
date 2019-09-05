@@ -41,9 +41,9 @@ const favoriteCardStyles = {
 function CardFavorite({
     artist,
     favorites,
-    notifications,
+    subscriptions,
     onFavoriteArtist,
-    onNotifyArtist,
+    onSubscribeArtist,
 }) {
     const artistId = artist.id
     const artistName = artist.name
@@ -76,9 +76,9 @@ function CardFavorite({
             <ArtistActions
                 artistId={artistId}
                 favorites={favorites}
-                notifications={notifications}
+                subscriptions={subscriptions}
                 onFavoriteArtist={onFavoriteArtist}
-                onNotifyArtist={onNotifyArtist}
+                onSubscribeArtist={onSubscribeArtist}
             />
         </div>
     )
@@ -87,15 +87,15 @@ function CardFavorite({
 export function PageFavorites({
     artists,
     favorites,
-    notifications,
+    subscriptions,
     onFavoriteArtist,
-    onNotifyArtist
+    onSubscribeArtist
 }) {
-    // if (isEmpty(Object.keys(favorites))) {
-    //     return (
-    //         <p>You don't have any favorites... Go and add some!</p>
-    //     )
-    // }
+    if (isEmpty(favorites)) {
+        return (
+            <p>You don't have any favorites... Go and add some!</p>
+        )
+    }
 
     return (
         <div>
@@ -107,9 +107,9 @@ export function PageFavorites({
                         key={artist.id}
                         artist={artist}
                         favorites={favorites}
-                        notifications={notifications}
+                        subscriptions={subscriptions}
                         onFavoriteArtist={onFavoriteArtist}
-                        onNotifyArtist={onNotifyArtist}
+                        onSubscribeArtist={onSubscribeArtist}
                     />
                 )
             })}

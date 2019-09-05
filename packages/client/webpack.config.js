@@ -48,20 +48,25 @@ module.exports = function(env, argv) {
         module: {
             rules: [
                 {
-                    test: /\.(js|jsx)$/,
+                    test: /\.jsx?$/,
                     exclude: /node_modules/,
-                    use: 'babel-loader'
+                    use: [
+                        {
+                            loader: 'babel-loader'
+                        },
+                    ]
                 },
                 {
                     test: /\.(sa|sc|c)ss$/,
                     use: [
                         // NB: https://git.io/fXylx
-                        {
-                            loader: MiniCssExtractPlugin.loader,
-                            options: {
-                                hmr: process.env.NODE_ENV === 'development',
-                            }
-                        }, 
+                        // {
+                        //     loader: MiniCssExtractPlugin.loader,
+                        //     // options: {
+                        //     //     hmr: process.env.NODE_ENV === 'development',
+                        //     // }
+                        // },
+                        MiniCssExtractPlugin.loader,
                         'css-loader',
                         'sass-loader'
                     ]

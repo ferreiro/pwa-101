@@ -1,0 +1,20 @@
+{
+    "jorge-ferreiro": {
+        "id": "jorge-ferreiro",
+        "name": "Jorge Ferreiro",
+        "city": "Madrid, Spain",
+        "country": "🇪🇸",
+        "imageHero": "/static/images/jorge_ferreiro_at_pennapps.jpg",
+        "imageIcon": "",
+        "biography": "This is my super biography<br /><br />Hi there!"
+    },
+    "venmo-232": {
+        "id": "venmo-232",
+        "name": "Venmo brothers",
+        "city": "Madrid, Spain",
+        "country": "🇪🇸",
+        "imageHero": "/static/images/crystal_fighters.jpg",
+        "imageIcon": "",
+        "biography": "This is my super biography<br /><br />Hi there!"
+    }
+}
