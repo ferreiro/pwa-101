@@ -18,7 +18,7 @@ if (fs.existsSync(CERT_KEY_PATH)) {
 }
 
 process.stdout.write(chalk.blue('🔐  Attempting to automatically generate X.509 certificate and private key\n'))
-getDevelopmentCertificate('frontend-grocer', { installCertutil: true })
+getDevelopmentCertificate('pennapps', { installCertutil: true })
   .then(({key, cert}) => {
     process.stdout.write(chalk.green.bold('   ↪ ✅  Success!\n'))
     

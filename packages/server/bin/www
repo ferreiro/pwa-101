@@ -24,7 +24,7 @@ function startAndListen(server, port) {
 }
 
 debug('Attempting to get certificate');
-getDevelopmentCertificate('frontend-grocer', { installCertutil: true }).then((ssl) => {
+getDevelopmentCertificate('pennapps', { installCertutil: true }).then((ssl) => {
   debug('SSL configuration received. Starting app server');
 
   const port = normalizePort(process.env.PORT || '3000');
