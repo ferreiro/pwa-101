@@ -6,15 +6,19 @@
       <meta charset="UTF-8">
       <meta http-equiv="Content-Language" content="en-US">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
       <title>
           <%= htmlWebpackPlugin.options.title %>
       </title>
+
+      <link href="/static/manifest.json" rel="manifest">
 
       <link rel="stylesheet" type="text/css" href="/static/normalize.css">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap" rel="stylesheet">
 
       <style>
         body {
+          background: #fff;
           font-family: 'Roboto', sans-serif;
           font-family: 'Open Sans', sans-serif;
         }

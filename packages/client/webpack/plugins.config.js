@@ -45,6 +45,15 @@ module.exports = ({
                 )
             }
         ]),
+        new CopyWebpackPlugin([
+            {
+                from: './src/app/manifest.json',
+                to: outputPath,
+                transformPath: (targetPath) => (
+                    targetPath.replace('src/', '')
+                )
+            }
+        ]),
     ]
 
     if (mode === 'development') {

@@ -1,0 +1,21 @@
+{
+    "short_name": "Pennapps",
+    "name": "Pennapps agenda",
+    "start_url": "/?utm_source=pwa",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "scope": "/",
+    "icons": [
+        {
+            "src": "/static/images/pennapps_logo_pwa_192_192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/static/images/pennapps_logo_pwa_512_512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
