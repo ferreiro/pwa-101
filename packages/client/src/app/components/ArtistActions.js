@@ -4,6 +4,7 @@ import { css, cx } from 'emotion'
 import { spacing05, spacing1 } from '../constants/style'
 import { NOTIFICATION_ARTIST } from '../App'
 import { createArtistNotification } from '../create-notification'
+import { launchPaymentIfSupported } from '../launch-payments-if-supported'
 
 const buttonFavoriteStyle = {
     wrapper: css`
@@ -88,11 +89,14 @@ const buttonsPurchaseStyle = {
 }
 
 function ButtonPurchase({
-    onClick,
-    tickets
+    artistId,
+    tickets,
 }) {
     const initializePurchase = () => {
-        console.log('initialize purchase')
+        return launchPaymentIfSupported({
+            artistId,
+            tickets
+        })
     }
 
     return (
@@ -164,6 +168,7 @@ export function ArtistActions({
             <li className={artistActionsStyle.item}>
                 {tickets && (
                     <ButtonPurchase
+                        artistId={artistId}
                         tickets={tickets}
                     />
                 )}

@@ -87,14 +87,9 @@ class App extends PureComponent {
                 stage: STAGE_TOWNE_321,
                 artistId: 'venmo-qa',
                 tickets: {
-                    purchaseUrl: 'eventbrite.com',
-                    available: [
-                        {
-                            price: 30,
-                            currency: 'USD',
-                            quantity: 30,
-                        }
-                    ]
+                    price: 0,
+                    currency: 'USD',
+                    available: 1000,
                 }
             },
             '3423423': {
@@ -104,14 +99,9 @@ class App extends PureComponent {
                 stage: STAGE_TOWNE_100,
                 artistId: 'jorge-ferreiro',
                 tickets: {
-                    purchaseUrl: 'eventbrite.com',
-                    available: [
-                        {
-                            price: 30,
-                            currency: 'USD',
-                            quantity: 30,
-                        }
-                    ]
+                    price: 0,
+                    currency: 'USD',
+                    available: 1000,
                 }
             },
         },
@@ -295,6 +285,7 @@ class App extends PureComponent {
                             title: 'Favorites',
                             favorites,
                             subscriptions,
+                            findArtistAgendaItem: this.findArtistAgendaItem,
                             onFavoriteArtist: this.onFavoriteArtist,
                             onSubscribeArtist: this.onSubscribeArtist,
                         }

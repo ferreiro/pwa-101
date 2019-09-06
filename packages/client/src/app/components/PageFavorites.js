@@ -41,6 +41,7 @@ const favoriteCardStyles = {
 function CardFavorite({
     artist,
     favorites,
+    findArtistAgendaItem,
     subscriptions,
     onFavoriteArtist,
     onSubscribeArtist,
@@ -48,6 +49,9 @@ function CardFavorite({
     const artistId = artist.id
     const artistName = artist.name
     const imageHero = artist.imageHero
+
+    const agendaItem = findArtistAgendaItem({artistId})
+    const tickets = agendaItem.tickets
 
     return (
         <div className={favoriteCardStyles.wrapper}>
@@ -72,6 +76,7 @@ function CardFavorite({
                 artistId={artistId}
                 favorites={favorites}
                 subscriptions={subscriptions}
+                tickets={tickets}
                 onFavoriteArtist={onFavoriteArtist}
                 onSubscribeArtist={onSubscribeArtist}
             />
@@ -82,6 +87,7 @@ function CardFavorite({
 export function PageFavorites({
     artists,
     favorites,
+    findArtistAgendaItem,
     subscriptions,
     onFavoriteArtist,
     onSubscribeArtist
@@ -108,6 +114,7 @@ export function PageFavorites({
                         key={artist.id}
                         artist={artist}
                         favorites={favorites}
+                        findArtistAgendaItem={findArtistAgendaItem}
                         subscriptions={subscriptions}
                         onFavoriteArtist={onFavoriteArtist}
                         onSubscribeArtist={onSubscribeArtist}

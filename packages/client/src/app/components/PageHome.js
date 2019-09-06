@@ -141,6 +141,7 @@ function AgendaCard(props) {
         artist = {},
         favorites,
         subscriptions,
+        tickets,
         onFavoriteArtist,
         onSubscribeArtist,
         purchaseUrl,
@@ -182,6 +183,7 @@ function AgendaCard(props) {
                 artistId={id}
                 favorites={favorites}
                 subscriptions={subscriptions}
+                tickets={tickets}
                 onFavoriteArtist={onFavoriteArtist}
                 onSubscribeArtist={onSubscribeArtist}
                 purchaseUrl={purchaseUrl}
