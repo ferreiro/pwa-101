@@ -29,7 +29,7 @@ module.exports = function(env, argv) {
         output: {
             filename: '[name].bundle.js',
             path: DESTINATION_PATH,
-            publicPath: '/static/',
+            publicPath: '/',
         },
         // This is required to make the hot reload work for the web...
         target: 'web',
