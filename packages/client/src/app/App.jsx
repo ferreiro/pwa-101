@@ -65,22 +65,15 @@ export const STAGE_MAPPER = {
 }
 
 if ('serviceWorker' in navigator) {
-    debug('Trying to register a service worker yay!')
-    navigator.serviceWorker.register('/static/sw.js')
+    console.log('⭐ Start to register a service worker')
+
+    navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
-            debug('registration', registration)
-            // registration.showNotification('pene',{
-            //     'body': 'Did you make a $1,000,000 purchase at Dr. Evil...',
-            //     'icon': 'images/ccard.png',
-            //     'vibrate': [200, 100, 200, 100, 200, 100, 400],
-            //     'tag': 'request',
-            //     'actions': [
-            //         { 'action': 'yes', 'title': 'Yes', 'icon': 'images/yes.png' },
-            //         { 'action': 'no', 'title': 'No', 'icon': 'images/no.png' }
-            //     ]
-            // })
+            console.log('SW::Registration', registration)
         })
-        .catch((error) => debug(error))
+        .catch((error) => {
+            console.log('SW::Error registering sw', error)
+        });
 }
 
 class App extends PureComponent {
@@ -210,10 +203,6 @@ class App extends PureComponent {
                     />
                 </PageLayout>
             )
-
-            console.log('scrollToTop')
-            console.log(props)
-            console.log(props.scrollToTop)
 
             return props.scrollToTop ? (
                 <ScrollToTop>
