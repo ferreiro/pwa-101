@@ -74,9 +74,12 @@ function fetchImageOrFallback(fetchEvent) {
             return response.clone()
         })
         .catch(() => {
-            // NB: No cache image... Return placeholder
-            return caches.match(PLADEHOLDER_IMAGE, {
-                cacheName: cacheVersion
+            // NB: First try to retun cached image...
+            return caches.match(fetchEvent.request).catch(function() {
+                // NB: No cache image... Return placeholder
+                return caches.match(PLADEHOLDER_IMAGE, {
+                    cacheName: cacheVersion
+                })
             })
         })
 }
