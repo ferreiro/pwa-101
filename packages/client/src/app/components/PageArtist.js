@@ -6,7 +6,9 @@ import { STAGE_MAPPER } from '../App'
 import { spacing1, spacing2 } from '../constants/style'
 
 const artistLocationStyles = {
-    wrapper: css``,
+    wrapper: css`
+        margin-top: ${spacing2};
+    `,
     mapImage: css`
         width: 100%;
         min-height: 270px;
@@ -23,7 +25,7 @@ function ArtistLocation({
     const { googleMapsUrl, staticMapUrls, text } = STAGE_MAPPER[stage]
 
     return (
-        <div>
+        <div className={artistLocationStyles.wrapper}>
             <span>
                 <b>Building:</b> {text}
                 <img src="" />
@@ -83,9 +85,6 @@ export function PageArtist({
         imageHero,
     } = artist;
 
-    console.log(artistAgendaItem)
-    
-
     const stage = artistAgendaItem.stage
     const tickets = artistAgendaItem.tickets
 
@@ -111,15 +110,19 @@ export function PageArtist({
                     onSubscribeArtist={onSubscribeArtist}
                 />
 
-                <h4>
-                    About the event:
-                </h4>
+                {biography && (
+                    <div>
+                        <h4>
+                            About the event:
+                        </h4>
 
-                <p
-                    dangerouslySetInnerHTML={{
-                        __html: biography
-                    }}
-                />
+                        <p
+                            dangerouslySetInnerHTML={{
+                                __html: biography
+                            }}
+                        />
+                    </div>
+                )}
 
                 <ArtistLocation
                     stage={stage}
