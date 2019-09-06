@@ -6,7 +6,7 @@ export const getStaticMapsUrl = ({
     lat,
     long,
 }) => {
-    const zoom = 16
+    const zoom = 17
     const size = '600x300'
 
     return `${STATIC_MAP_URL}?center=${query}&zoom=${zoom}&size=${size}&maptype=roadmap&markers=color:blue%7Clabel:S%7C${lat},${long}&key=${GOOGLE_MAPS_PUBLIC_KEY}`
