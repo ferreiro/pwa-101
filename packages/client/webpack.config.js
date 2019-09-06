@@ -11,7 +11,6 @@ const plugins = require('./webpack/plugins.config')
 // const DESTINATION_PATH = path.join(__dirname, '../server/dist')
 const DESTINATION_PATH = path.join(__dirname, './dist')
 
-const env = process.env
 // const hotMiddlewareScript = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
 
 
@@ -25,7 +24,7 @@ module.exports = function(env, argv) {
     return {
         mode,
         entry: {
-            client: [path.join(__dirname, './src/index.js'), 'webpack-hot-middleware/client'],
+            client: [path.join(__dirname, './src/index.js')], // , 'webpack-hot-middleware/client'
         },
         output: {
             filename: '[name].bundle.js',
