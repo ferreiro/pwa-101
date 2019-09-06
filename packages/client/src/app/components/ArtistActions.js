@@ -73,6 +73,40 @@ function ButtonNotify({
     )
 }
 
+const buttonsPurchaseStyle = {
+    wrapper: css`
+        border: 2px solid #cecece;
+        background: #fff;
+        padding: ${spacing05} ${spacing1};
+        border-radius: 5px;
+    `,
+    active: css`
+        border-color: #c1bf51;
+        background-color: #fffeba;
+    `,
+    text: css``,
+}
+
+function ButtonPurchase({
+    onClick,
+    tickets
+}) {
+    const initializePurchase = () => {
+        console.log('initialize purchase')
+    }
+
+    return (
+        <button
+            onClick={initializePurchase}
+            className={buttonFavoriteStyle.wrapper}
+        >
+            <span className={buttonsPurchaseStyle.text}>
+                RSVP
+            </span>
+        </button>
+    )
+}
+
 const artistActionsStyle = {
     wrapper: css`
         margin: 0;
@@ -129,9 +163,9 @@ export function ArtistActions({
 
             <li className={artistActionsStyle.item}>
                 {tickets && (
-                    <a href={tickets.purchaseUrl} target="_blank" rel="noopener noreferrer">
-                        RSVP
-                    </a>
+                    <ButtonPurchase
+                        tickets={tickets}
+                    />
                 )}
             </li>
         </ul>
