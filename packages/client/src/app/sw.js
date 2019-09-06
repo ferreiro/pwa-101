@@ -64,21 +64,19 @@ function fetchImageOrFallback(fetchEvent) {
                 throw Error('Can not download image from server')
             }
 
-            // Cache in Background the image
+            // NB: Cache in Background the image
             caches.open(cacheVersion).then(function(cache) {
                 cache.put(fetchEvent.request, response)
             })
 
-            // We need to duplicate, otherwise it says the response was consumed twice
+            // NB: Duplicating response, since we can't reuse it
+            // into two places.
             return response.clone()
         })
         .catch(() => {
-            // NB: Try to retun cached image...
-            return caches.match(event.request).catch(function() {
-                // NB: No cache image... Return placeholder
-                return caches.match(PLADEHOLDER_IMAGE, {
-                    cacheName: cacheVersion
-                })
+            // NB: No cache image... Return placeholder
+            return caches.match(PLADEHOLDER_IMAGE, {
+                cacheName: cacheVersion
             })
         })
 }
