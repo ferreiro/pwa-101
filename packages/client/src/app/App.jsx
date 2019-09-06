@@ -39,14 +39,27 @@ export const DATE_MAPPER_TO_HUMAN_TIME = {
     [DATE_SUNDAY]: 'Sunday 8 September'
 }
 
-const STAGE_ROCK_IN_RIO = 'building/rockInRio'
+const STAGE_TOWNE_100 = 'building/Towne100'
+const STAGE_TOWNE_321 = 'building/towne321'
+
 
 export const STAGE_MAPPER = {
-    [STAGE_ROCK_IN_RIO]: {
-        text: 'Rock in Rio',
-        googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=rock+in+rio',
+    [STAGE_TOWNE_100]: {
+        text: 'Towne building 100',
+        googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Towne+Building',
         staticMapUrls: getStaticMapsUrl({
-
+            query: 'Towne+Building',
+            lat: '39.9516691',
+            long: '-75.1912037',
+        })
+    },
+    [STAGE_TOWNE_321]: {
+        text: 'Towne building 321',
+        googleMapsUrl: 'https://www.google.com/maps/search/?api=1&query=Towne+Building',
+        staticMapUrls: getStaticMapsUrl({
+            query: 'Towne+Building',
+            lat: '39.9516691',
+            long: '-75.1912037',
         })
     }
 }
@@ -78,8 +91,8 @@ class App extends PureComponent {
                 id: '23424234',
                 time: '5 PM',
                 date: DATE_FRIDAY,
-                stage: STAGE_ROCK_IN_RIO,
-                artistId: 'venmo-232',
+                stage: STAGE_TOWNE_321,
+                artistId: 'venmo-qa',
                 tickets: {
                     purchaseUrl: 'eventbrite.com',
                     available: [
@@ -95,7 +108,7 @@ class App extends PureComponent {
                 id: '3423423',
                 time: '7 PM',
                 date: DATE_FRIDAY,
-                stage: STAGE_ROCK_IN_RIO,
+                stage: STAGE_TOWNE_100,
                 artistId: 'jorge-ferreiro',
                 tickets: {
                     purchaseUrl: 'eventbrite.com',

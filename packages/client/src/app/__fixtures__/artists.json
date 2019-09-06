@@ -8,13 +8,13 @@
         "imageIcon": "",
         "biography": "This is my super biography<br /><br />Hi there!"
     },
-    "venmo-232": {
-        "id": "venmo-232",
-        "name": "Venmo brothers",
-        "city": "Madrid, Spain",
-        "country": "🇪🇸",
-        "imageHero": "/static/images/crystal_fighters.jpg",
+    "venmo-qa": {
+        "id": "venmo-qa",
+        "name": "Q&A with Founders of Venmo",
+        "city": "United States",
+        "country": "🇺🇸",
+        "imageHero": "/static/images/venmo-founders-laughing.jpg",
         "imageIcon": "",
-        "biography": "This is my super biography<br /><br />Hi there!"
+        "biography": null
     }
 }
