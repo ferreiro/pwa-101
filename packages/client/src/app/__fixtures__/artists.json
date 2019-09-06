@@ -4,7 +4,7 @@
         "name": "Jorge Ferreiro",
         "city": "Madrid, Spain",
         "country": "🇪🇸",
-        "imageHero": "/static/images/jorge_ferreiro_at_pennapps.jpg",
+        "imageHero": "/images/jorge_ferreiro_at_pennapps.jpg",
         "imageIcon": "",
         "biography": "This is my super biography<br /><br />Hi there!"
     },
@@ -13,7 +13,7 @@
         "name": "Q&A with Founders of Venmo",
         "city": "United States",
         "country": "🇺🇸",
-        "imageHero": "/static/images/venmo-founders-laughing.jpg",
+        "imageHero": "/images/venmo-founders-laughing.jpg",
         "imageIcon": "",
         "biography": null
     }
