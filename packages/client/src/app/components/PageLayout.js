@@ -175,6 +175,15 @@ const pageLayoutStyle = {
     containerFullScreen: css`
         max-width: ${containerMaxWidth};
         margin: 0 auto;
+    `,
+    credits: css`
+        width: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        text-align: center;
+        padding: 5px 10px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
     `
 }
 
@@ -203,6 +212,10 @@ export function PageLayout({
 
                 {children}
             </div>
+
+            <footer className={pageLayoutStyle.credits}>
+                Made with love by <a href="https://twitter.com/JGFerreiro" target="_blank">@jgferreiro</a>
+            </footer>
         </div>
     )
 }
