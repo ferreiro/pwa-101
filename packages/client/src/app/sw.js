@@ -1,6 +1,6 @@
 'use strict'
 
-const cacheVersion = 'version-1'
+const cacheVersion = 'version-2'
 const criticalAssets = ['/client.bundle.js', '/index.html']
 
 self.addEventListener('install', (event) => {
@@ -22,17 +22,40 @@ function cacheCriticalAssets (cache) {
 
 function cacheNoCriticalAssets(cache) {
     cache.add('./foo.css')
+    cache.add('./images/crystal_fighters.jpg')
+}
+
+function fetchImageOrFallback(fetchEvent) {
+    return caches.match('./images/crystal_fighters.jpg', {
+        cacheName: cacheVersion
+    })
+
+    // return fetch(fetchEvent.request, {
+    //     mode: 'no-cors'
+    // })
+    // .then(({ response })) => {
+    //     if (!response.ok) {
+    //         return caches.match('')
+    //     }
+    // }
 }
 
 self.addEventListener('fetch', (event) => {
-    caches.open(cacheVersion).then((cache) => {
-        console.log('fetch::cache')
-        console.log(cache)
-    })
+    const acceptHeader = event.request.headers.get('accept')
+    const requestUrl = new URL(event.request.url)
 
-    console.log('I am intercepting network requests! ')
+    console.log('acceptHeader', acceptHeader)
+    console.log('requestUrl', requestUrl)
 
-    const url = event.request.url
+    return event.respondWith(
+        fetchImageOrFallback(event)
+    )
 
-    console.log('Requested resource url: ', url)
+    if (acceptHeader.indexOf('image') === 0) {
+        if (requestUrl.pathname.indexOf('/images/') === 0) {
+            event.respondWith(
+                fetchImageOrFallback(event)
+            )
+        }
+    }
 })
