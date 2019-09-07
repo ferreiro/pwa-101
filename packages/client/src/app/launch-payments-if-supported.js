@@ -10,21 +10,19 @@ const SUPPORTED_METHODS = [{
     }
 }]
 
-
 export const launchPaymentIfSupported = ({
     artistId,
     tickets = {},
+    handlePaymentChange,
+    handleShippingAddressChange,
 }) => {
     if (!PaymentRequest) {
-        console.log('PaymentRequest not supported in users browser')
+        // PaymentRequest not supported in users browser
         return
     }
 
-    console.log('initialize purchase')
-
     const artist = artists[artistId]
     const label = `Ticket for ${artist.name}`
-
     const details = {
         displayItems: [{
             label,
@@ -37,33 +35,22 @@ export const launchPaymentIfSupported = ({
     }
 
     const options = {
-        requestShipping: false,
         requestPayerEmail: true,
         requestPayerPhone: true,
         requestPayerName: true,
         shippingType: 'delivery'
     }
 
-    const request = new PaymentRequest(
-        SUPPORTED_METHODS,
-        details,
-        options
-    )
+    const paymentRequest = new PaymentRequest(SUPPORTED_METHODS, details, options)
 
-    request.addEventListener('shippingaddresschange', function(evt) {
-        evt.updateWith(new Promise(function(resolve) {
-            Promise.resolve()
-            // updateDetails(details, request.shippingAddress, resolve);
-        }))
-    })
-
-    request.show().then(response => {
+    paymentRequest.addEventListener('paymentmethodchange', handlePaymentChange, false)
+    paymentRequest.addEventListener('shippingaddresschange', handleShippingAddressChange, false)
+    paymentRequest.show().then(response => {
         console.log('💰 payments response', response)
         // [process payment]
         // send to a PSP etc.
         response.complete('success')
-    }).catch((error) => {
-        alert(error)
+    }).catch(() => {
+        // error on showing a modal.
     })
-
 }

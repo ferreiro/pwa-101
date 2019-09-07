@@ -92,10 +92,26 @@ function ButtonPurchase({
     artistId,
     tickets,
 }) {
+    const handlePaymentChange = (event) => {
+        // TODO: Implement Handle payment change.
+        // We can keep the state inside the ButtonPurchase,
+        // and pass down this handler
+        console.log('handlePaymentChange was dispatched')
+    }
+
+    const handleShippingAddressChange = (event) => {
+        // TODO: Implement Handle payment change.
+        // We can keep the state inside the ButtonPurchase,
+        // and pass down this handler
+        console.log('handleShippingAddressChange was dispatched')
+    }
+
     const initializePurchase = () => {
         return launchPaymentIfSupported({
             artistId,
-            tickets
+            tickets,
+            handlePaymentChange,
+            handleShippingAddressChange,
         })
     }
 
