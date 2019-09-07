@@ -31,24 +31,30 @@ function cacheNoCriticalAssets(cache) {
     cache.add('./foo.css')
 }
 
+// TODO: Refactor this into a more generic function
+// that can be re-used for other critical resources
 function fetchHomePageOrFallback(fetchEvent) {
     return caches.match('/index.html', {
         cacheName: cacheVersion
     })
 }
 
+// TODO: Refactor this into a more generic function
+// that can be re-used for other critical resources
 function fetchManifestOrFallback(fetchEvent) {
     return caches.match('/manifest.json', {
         cacheName: cacheVersion
     })
 }
 
+// TODO: Refactor this into a more generic function
+// that can be re-used for other critical resources
 function fetchNormalizeOrFallback(fetchEvent) {
-    return caches.match('/normalize.css', {
-        cacheName: cacheVersion
-    })
+    return caches.match(fetchEvent.request)
 }
 
+// TODO: Refactor this into a more generic function
+// that can be re-used for other critical resources
 function fetchJavascriptOrFallback(fetchEvent) {
     return caches.match('/client.bundle.js', {
         cacheName: cacheVersion
@@ -88,8 +94,8 @@ self.addEventListener('fetch', (event) => {
     const acceptHeader = event.request.headers.get('accept')
     const requestUrl = new URL(event.request.url)
 
-    // console.log('acceptHeader', acceptHeader)
-    // console.log('requestUrl', requestUrl)
+    console.log('acceptHeader', acceptHeader)
+    console.log('requestUrl', requestUrl)
 
     if (acceptHeader.includes('html')) {
         return event.respondWith(
@@ -120,16 +126,4 @@ self.addEventListener('fetch', (event) => {
             fetchImageOrFallback(event)
         )
     }
-
-    // return event.respondWith(
-    //     fetchImageOrFallback(event)
-    // )
-
-    // if (acceptHeader.indexOf('image') === 0) {
-    //     if (requestUrl.pathname.indexOf('/images/') === 0) {
-    //         event.respondWith(
-    //             fetchImageOrFallback(event)
-    //         )
-    //     }
-    // }
 })
