@@ -72,7 +72,7 @@ if ('serviceWorker' in navigator) {
             console.log('SW::Registration', registration)
         })
         .catch((error) => {
-            console.log('SW::Error registering sw', error)
+            console.log('SW::Error registering', error)
         });
 }
 
