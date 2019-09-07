@@ -14,6 +14,44 @@ self.addEventListener('install', (event) => {
     event.waitUntil(cacheAssets())
 })
 
+self.addEventListener('fetch', (event) => {
+    const acceptHeader = event.request.headers.get('accept')
+    const requestUrl = new URL(event.request.url)
+
+    console.log('acceptHeader', acceptHeader)
+    console.log('requestUrl', requestUrl)
+
+    if (acceptHeader.includes('html')) {
+        return event.respondWith(
+            fetchHomePageOrFallback(event)
+        )
+    }
+
+    if (requestUrl.pathname.includes('/manifest.json')) {
+        return event.respondWith(
+            fetchManifestOrFallback(event)
+        )
+    }
+
+    if (requestUrl.pathname.includes('normalize.css')) {
+        return event.respondWith(
+            fetchNormalizeOrFallback(event)
+        )
+    }
+
+    if (requestUrl.pathname.includes('/client.bundle.js')) {
+        return event.respondWith(
+            fetchJavascriptOrFallback(event)
+        )
+    }
+
+    if (acceptHeader.includes('image')) {
+        return event.respondWith(
+            fetchImageOrFallback(event)
+        )
+    }
+})
+
 function cacheAssets() {
     return caches.open(cacheVersion)
         .then((cache) => {
@@ -89,41 +127,3 @@ function fetchImageOrFallback(fetchEvent) {
             })
         })
 }
-
-self.addEventListener('fetch', (event) => {
-    const acceptHeader = event.request.headers.get('accept')
-    const requestUrl = new URL(event.request.url)
-
-    console.log('acceptHeader', acceptHeader)
-    console.log('requestUrl', requestUrl)
-
-    if (acceptHeader.includes('html')) {
-        return event.respondWith(
-            fetchHomePageOrFallback(event)
-        )
-    }
-
-    if (requestUrl.pathname.includes('/manifest.json')) {
-        return event.respondWith(
-            fetchManifestOrFallback(event)
-        )
-    }
-
-    if (requestUrl.pathname.includes('normalize.css')) {
-        return event.respondWith(
-            fetchNormalizeOrFallback(event)
-        )
-    }
-
-    if (requestUrl.pathname.includes('/client.bundle.js')) {
-        return event.respondWith(
-            fetchJavascriptOrFallback(event)
-        )
-    }
-
-    if (acceptHeader.includes('image')) {
-        return event.respondWith(
-            fetchImageOrFallback(event)
-        )
-    }
-})
