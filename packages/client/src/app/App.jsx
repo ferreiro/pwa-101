@@ -4,6 +4,7 @@ import isEmpty from 'lodash/isEmpty'
 
 import {getStaticMapsUrl} from './get-static-maps-url'
 import artists from './__fixtures__/artists.json'
+import agenda from './__fixtures__/agenda'
 import ScrollToTop from './components/ScrollToTop'
 
 export const debug = process.env === 'production'
@@ -23,12 +24,14 @@ import {
     PATH_FAVORITES,
 } from './constants/paths'
 
+const NOTIFICATIONS_MANAGER_DELAY = 5000
+
 export const NOTIFICATION_ARTIST = 'notification/artist'
 export const NOTIFICATION_PUSH = 'notification/push'
 
-const DATE_FRIDAY = 'date/friday'
-const DATE_SATURDAY = 'date/saturday'
-const DATE_SUNDAY = 'date/sunday'
+export const DATE_FRIDAY = 'date/friday'
+export const DATE_SATURDAY = 'date/saturday'
+export const DATE_SUNDAY = 'date/sunday'
 
 /**
  * Returns a human readable date
@@ -39,8 +42,8 @@ export const DATE_MAPPER_TO_HUMAN_TIME = {
     [DATE_SUNDAY]: 'Sunday 8 September'
 }
 
-const STAGE_TOWNE_100 = 'building/Towne100'
-const STAGE_TOWNE_321 = 'building/towne321'
+export const STAGE_TOWNE_100 = 'building/Towne100'
+export const STAGE_TOWNE_321 = 'building/towne321'
 
 
 export const STAGE_MAPPER = {
@@ -79,32 +82,7 @@ if ('serviceWorker' in navigator) {
 class App extends PureComponent {
     state = {
         artists,
-        agenda: {
-            '23424234': {
-                id: '23424234',
-                time: '5 PM',
-                date: DATE_FRIDAY,
-                stage: STAGE_TOWNE_321,
-                artistId: 'venmo-qa',
-                tickets: {
-                    price: 0,
-                    currency: 'USD',
-                    available: 1000,
-                }
-            },
-            '3423423': {
-                id: '3423423',
-                time: '7 PM',
-                date: DATE_FRIDAY,
-                stage: STAGE_TOWNE_100,
-                artistId: 'jorge-ferreiro',
-                tickets: {
-                    price: 0,
-                    currency: 'USD',
-                    available: 1000,
-                }
-            },
-        },
+        agenda,
         favorites: {},
         subscriptions: {}
     }
