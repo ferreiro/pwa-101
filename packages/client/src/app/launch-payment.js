@@ -10,7 +10,7 @@ const SUPPORTED_METHODS = [{
     }
 }]
 
-export const launchPaymentIfSupported = ({
+export const launchPayment = ({
     artistId,
     tickets = {},
     handlePaymentChange,

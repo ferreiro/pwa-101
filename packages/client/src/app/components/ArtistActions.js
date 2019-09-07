@@ -4,7 +4,8 @@ import { css, cx } from 'emotion'
 import { spacing05, spacing1 } from '../constants/style'
 import { NOTIFICATION_ARTIST } from '../App'
 import { createArtistNotification } from '../create-notification'
-import { launchPaymentIfSupported } from '../launch-payments-if-supported'
+import { launchPayment } from '../launch-payment'
+import { launchNotification } from '../launch-notification'
 
 const buttonFavoriteStyle = {
     wrapper: css`
@@ -40,7 +41,7 @@ function ButtonFavorite({
     )
 }
 
-const buttonsubscriptionstyle = {
+const buttonSubscriptionStyle = {
     wrapper: css`
         border: 2px solid #cecece;
         background: #fff;
@@ -55,19 +56,25 @@ const buttonsubscriptionstyle = {
 }
 
 function ButtonNotify({
+    artistId,
     isNotified,
     onClick,
 }) {
     const wrapperClassName = isNotified
-        ? cx(buttonsubscriptionstyle.wrapper, buttonsubscriptionstyle.active) 
+        ? cx(buttonSubscriptionStyle.wrapper, buttonSubscriptionStyle.active)
         : buttonFavoriteStyle.wrapper
+
+    const handleOnClick = (event) => {
+        onClick()
+        launchNotification({ artistId, isEnabled: !isNotified })
+    }
 
     return (
         <button
-            onClick={onClick}
+            onClick={handleOnClick}
             className={wrapperClassName}
         >
-            <span className={buttonsubscriptionstyle.text}>
+            <span className={buttonSubscriptionStyle.text}>
                 {isNotified ? '🔕' : '🔔'}
             </span>
         </button>
@@ -107,7 +114,7 @@ function ButtonPurchase({
     }
 
     const initializePurchase = () => {
-        return launchPaymentIfSupported({
+        return launchPayment({
             artistId,
             tickets,
             handlePaymentChange,
@@ -176,6 +183,7 @@ export function ArtistActions({
 
             <li className={artistActionsStyle.item}>
                 <ButtonNotify
+                    artistId={artistId}
                     onClick={_handleNotifyArtist}
                     isNotified={isNotified}
                 />
