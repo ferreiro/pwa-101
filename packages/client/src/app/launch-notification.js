@@ -5,7 +5,7 @@ export const launchNotification = ({
     isEnabled,
 }) => {
     if ('Notification' in window) {
-        Notification.requestPermission().then(permission => {
+        Notification.requestPermission().then((permission) => {
             const artist = artists[artistId]
             const title = isEnabled
                 ? `✅ Notifications for ${artist.name} are activated!`

@@ -20,11 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client/dist')));
 app.use(express.static(path.join(__dirname, './static')));
 
-app.use('/', indexRouter);
-app.use('/artist', indexRouter);
-app.use('/artist/:id', indexRouter);
-app.use('/favorites', indexRouter);
-app.use('/notifications', indexRouter);
+app.use('/*', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

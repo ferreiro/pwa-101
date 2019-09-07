@@ -24,8 +24,6 @@ import {
     PATH_FAVORITES,
 } from './constants/paths'
 
-const NOTIFICATIONS_MANAGER_DELAY = 5000
-
 export const NOTIFICATION_ARTIST = 'notification/artist'
 export const NOTIFICATION_PUSH = 'notification/push'
 

@@ -2,11 +2,13 @@
 
 const cacheVersion = 'version-1'
 const PLADEHOLDER_IMAGE = '/images/placeholder.jpg'
+const MAP_PLADEHOLDER_IMAGE = '/images/map-placeholder.jpg'
 const criticalAssets = [
     '/index.html',
     '/client.bundle.js',
     '/manifest.json',
     PLADEHOLDER_IMAGE,
+    MAP_PLADEHOLDER_IMAGE,
     '/normalize.css'
 ]
 
@@ -20,6 +22,12 @@ self.addEventListener('fetch', (event) => {
 
     console.log('acceptHeader', acceptHeader)
     console.log('requestUrl', requestUrl)
+
+    if (requestUrl.href.includes('https://maps.googleapis.com/maps/api/staticmap?')) {
+        return event.respondWith(
+            fetchStaticMapPageOrFallback(event)
+        )
+    }
 
     if (acceptHeader.includes('html')) {
         return event.respondWith(
@@ -75,6 +83,26 @@ function fetchHomePageOrFallback(fetchEvent) {
     return caches.match('/index.html', {
         cacheName: cacheVersion
     })
+}
+
+// TODO: Refactor this into a more generic function
+// that can be re-used for other critical resources
+function fetchStaticMapPageOrFallback(fetchEvent) {
+    return fetch(fetchEvent.request)
+        .catch((error) => {
+            return caches.match(MAP_PLADEHOLDER_IMAGE, {
+                cacheName: cacheVersion
+            })
+        })
+    // return caches.match(fetchEvent.request, {
+    //     cacheName: cacheVersion
+    // }).catch(() => {
+    //     return fetch(fetchEvent.request)
+    // }).then((response) => {
+    //     return caches.open(cacheVersion).then((cache) => {
+    //         cache.add(response)
+    //     })
+    // })
 }
 
 // TODO: Refactor this into a more generic function
