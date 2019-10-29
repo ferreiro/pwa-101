@@ -1,12 +1,13 @@
-# Progressive Web Applications (PWAs) 101
+# 🚀 Progressive Web Applications (PWAs) 101
 
-Welcome to a simple React application with Progressive Web Apps functionalities.
+Welcome to a simple React application with Progressive Web Apps functionalities 🙌🙌🙌
+This project is part of a workshop about Progressive Web Applications I've been doing.
 
 ## Features
 
-* ✅ Offline mode: It works even when you don't have internet connection.
-* ✅ Add to favorite: Follow your favorite artists from the agenda.
-* ✅ Local notifications: Subscribe to your favorite events, and you will be notified.
+* ⚙️ Offline mode: It works even when you don't have internet connection.
+* ❤️ Add to favorite: Follow your favorite artists from the agenda.
+* 🎯 Local notifications: Subscribe to your favorite events, and you will be notified.
 
 ## Setup your SSL certificate.
 
@@ -15,7 +16,7 @@ In order to do that, just simply run:
 
 1. $ yarn setup
 
-```
+```bash
 openssl req -x509 -out ./certificates/localhost.cert -keyout ./certificates/localhost.key \
   -newkey rsa:2048 -nodes -sha256 \
   -subj '/CN=localhost' -extensions EXT -config <( \
@@ -37,6 +38,13 @@ Also check: https://letsencrypt.org/docs/certificates-for-localhost/
 In development, all your frontend assets and app will be automatically rebuild! Also, it will automatically reload the browser! Yay.
 
 *Note* If you do changes to the backend, you will need to manually refresh the website. Sorry guys, didn't have time to do this (and it's really late now)! haha.
+
+## Watch the workshop
+
+This project was made as a part of a workshop about Progressive Web Applications. Check it out if you wanna see explanation of the code.
+
+<a href="https://www.youtube.com/watch?v=de1xiqz-BTE"><img src="./workshop_progressive_web_apps_pennapps.png" /></a>
+
 
 ## Contribute
 
