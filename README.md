@@ -49,9 +49,6 @@ If you have some doubts or want to stay in touch I'll be happy to help you out o
 
 * **Website:** [Jorge Ferreiro](http://www.ferreiro.me)
 * **Contact:** [Contact form and email](http://www.ferreiro.me/contact)
-
-Also you can find me on:
-
-* Twitter: [https://www.twitter.com/jgferreiro](https://www.twitter.com/jgferreiro)
-* Linkedin: [https://www.linkedin.com/in/jgferreiro/](https://www.linkedin.com/in/jgferreiro/)
-* Instagram: [https://www.instagram.com/jgferreiro/](https://www.instagram.com/jgferreiro/)
+* **Twitter:** [https://www.twitter.com/jgferreiro](https://www.twitter.com/jgferreiro)
+* **Linkedin:** [https://www.linkedin.com/in/jgferreiro/](https://www.linkedin.com/in/jgferreiro/)
+* **Instagram:** [https://www.instagram.com/jgferreiro/](https://www.instagram.com/jgferreiro/)
