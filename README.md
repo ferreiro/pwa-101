@@ -47,10 +47,11 @@ In development, all your frontend assets and app will be automatically rebuild! 
 
 If you have some doubts or want to stay in touch I'll be happy to help you out or collaborate on new projects. You can reach me here:
 
+* **Website:** [Jorge Ferreiro](http://www.ferreiro.me)
+* **Contact:** [Contact form and email](http://www.ferreiro.me/contact)
+
+Also you can find me on:
+
 * Twitter: [https://www.twitter.com/jgferreiro](https://www.twitter.com/jgferreiro)
 * Linkedin: [https://www.linkedin.com/in/jgferreiro/](https://www.linkedin.com/in/jgferreiro/)
 * Instagram: [https://www.instagram.com/jgferreiro/](https://www.instagram.com/jgferreiro/)
-
-Also you can find me on:
-* **Website:** [Jorge Ferreiro >](http://www.ferreiro.me)
-* **Contact:** [Contact form and email >](http://www.ferreiro.me/contact)
