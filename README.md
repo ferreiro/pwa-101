@@ -1,4 +1,12 @@
-# PWA 101
+# Progressive Web Applications (PWAs) 101
+
+Welcome to a simple React application with Progressive Web Apps functionalities.
+
+## Features
+
+* ✅ Offline mode: It works even when you don't have internet connection.
+* ✅ Add to favorite: Follow your favorite artists from the agenda.
+* ✅ Local notifications: Subscribe to your favorite events, and you will be notified.
 
 ## Setup your SSL certificate.
 
@@ -29,3 +37,15 @@ Also check: https://letsencrypt.org/docs/certificates-for-localhost/
 In development, all your frontend assets and app will be automatically rebuild! Also, it will automatically reload the browser! Yay.
 
 *Note* If you do changes to the backend, you will need to manually refresh the website. Sorry guys, didn't have time to do this (and it's really late now)! haha.
+
+## Contribute
+
+💬 [Create a new Pull Request](https://github.com/ferreiro/pwa-101/pulls)
+
+
+## My social networks
+
+* Twitter: [https://www.twitter.com/jgferreiro](https://www.twitter.com/jgferreiro)
+* Linkedin: [https://www.linkedin.com/in/jgferreiro/](https://www.linkedin.com/in/jgferreiro/)
+* Instagram: [https://www.instagram.com/jgferreiro/](https://www.instagram.com/jgferreiro/)
+
