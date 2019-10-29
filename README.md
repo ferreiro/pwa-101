@@ -1,7 +1,10 @@
 # 🚀 Progressive Web Applications (PWAs) 101
 
-Welcome to a simple React application with Progressive Web Apps functionalities 🙌🙌🙌
-This project is part of a workshop about Progressive Web Applications I've been doing.
+Welcome to a simple React application with Progressive Web Apps functionalities 🙌
+
+This project is part of a workshop about Progressive Web Applications I've been doing:
+
+* [Workshop: Progressive Web Apps at PennApps (University of Pennsylvania)](https://www.ferreiro.me/blog/workshop-progressive-web-apps-at-pennapps)
 
 ## Features
 
