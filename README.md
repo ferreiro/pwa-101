@@ -2,15 +2,21 @@
 
 Welcome to a simple React application with Progressive Web Apps functionalities 🙌
 
-This project is part of a workshop about Progressive Web Applications I've been doing:
-
-* [Workshop: Progressive Web Apps at PennApps (University of Pennsylvania)](https://www.ferreiro.me/blog/workshop-progressive-web-apps-at-pennapps)
-
 ## Features
 
 * ⚙️ Offline mode: It works even when you don't have internet connection.
 * ❤️ Add to favorite: Follow your favorite artists from the agenda.
 * 🎯 Local notifications: Subscribe to your favorite events, and you will be notified.
+
+## Watch the workshop
+
+This project was made as a part of a workshop about Progressive Web Applications. Check it out if you wanna see explanation of the code.
+
+<a href="https://www.youtube.com/watch?v=de1xiqz-BTE"><img src="./workshop_progressive_web_apps_pennapps.png" /></a>
+
+This project is part of a workshop about Progressive Web Applications I've been doing:
+
+* [Workshop: Progressive Web Apps at PennApps (University of Pennsylvania)](https://www.ferreiro.me/blog/workshop-progressive-web-apps-at-pennapps)
 
 ## Setup your SSL certificate
 
@@ -40,12 +46,6 @@ openssl req -x509 -out ./certificates/localhost.cert -keyout ./certificates/loca
 In development, all your frontend assets and app will be automatically rebuild! Also, it will automatically reload the browser! Yay.
 
 *Note* If you do changes to the backend, you will need to manually refresh the website. Sorry guys, didn't have time to do this (and it's really late now)! haha.
-
-## Watch the workshop
-
-This project was made as a part of a workshop about Progressive Web Applications. Check it out if you wanna see explanation of the code.
-
-<a href="https://www.youtube.com/watch?v=de1xiqz-BTE"><img src="./workshop_progressive_web_apps_pennapps.png" /></a>
 
 ## Contribute
 
